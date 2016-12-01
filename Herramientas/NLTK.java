@@ -1,3 +1,5 @@
+package Herramientas;
+
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.FileWriter;
@@ -8,13 +10,6 @@ import java.io.OutputStream;
 import javax.script.ScriptEngine;
 import javax.script.ScriptEngineManager;
 import javax.script.ScriptException;
-
-import org.python.core.PyArray;
-import org.python.core.PyInteger;
-import org.python.core.PyList;
-import org.python.core.PyObject;
-import org.python.core.PyString;
-import org.python.util.PythonInterpreter;
 
 public class NLTK implements Union {
 
@@ -51,18 +46,18 @@ public class NLTK implements Union {
 	}
 	
 	@Override
-	public void tokenizar(String texto) {
+	public String tokenizar(String texto) {
 		
     	String codigo = "import nltk\n"
 				+"from nltk.tokenize import word_tokenize\n"
 				+"tokens = word_tokenize( \" " +texto +" \" ) \n"
 				+"print(tokens) \n";
     	
-    	correrCodigo(codigo);
+    	return correrCodigo(codigo).toString();
    	}
 
 	@Override
-	public void chunk(String texto) {
+	public String chunk(String texto) {
 		
     	String codigo = "import nltk\n"
 				+"from nltk.tokenize import word_tokenize\n"
@@ -75,11 +70,11 @@ public class NLTK implements Union {
     			+"tagged_tokens = nltk.pos_tag(tokens)\n"
     			+"print (cp.parse(tagged_tokens))";
     	
-    	correrCodigo(codigo);
+    	return correrCodigo(codigo).toString();
 	}
 
 	@Override
-	public void parse(String texto) {
+	public String parse(String texto) {
 		
 		//TODO: Para parsear en nltk hay que darle una configuracion de la gramatica 
 		//		http://www.nltk.org/howto/parse.html
@@ -106,7 +101,7 @@ public class NLTK implements Union {
 	}
 
 	@Override
-	public void lang_ident(String texto) {
+	public String lang_ident(String texto) {
 		
 		//Link:
 		//http://blog.alejandronolla.com/2013/05/15/detecting-text-language-with-python-and-nltk/
@@ -125,17 +120,17 @@ public class NLTK implements Union {
     			+"most_rated_language = max(languages_ratios, key=languages_ratios.get)\n"
     			+"print(most_rated_language)";
     	
-    	correrCodigo(codigo);
+    	return correrCodigo(codigo).toString();
 		
 	}
 
 	@Override
-	public void name_entity_recognizer (String texto) {
+	public String name_entity_recognizer (String texto) {
 		//TODO
 	}
 
 	@Override
-	public void etiquetado_gramatical(String texto) {
+	public String etiquetado_gramatical(String texto) {
 		//Primero se tokeniza 
 		// y despues se obtiene los tag de cada token.
 		
@@ -145,20 +140,20 @@ public class NLTK implements Union {
 				+"tokens = word_tokenize( \" " +texto +" \" ) \n"
     			+"print(nltk.pos_tag(tokens))";
 		
-    	correrCodigo(codigo);
+    	return correrCodigo(codigo).toString();
 	}
 
 	@Override
-	public void sentence_detect(String texto) {
+	public String sentence_detect(String texto) {
 
     	String codigo = "import nltk\n"
     			+"sent_tokenizer = nltk.tokenize.PunktSentenceTokenizer()\n"	
 				+"sent_tokenizer.tokenize( \" " +texto +" \" )\n";
 		
-    	correrCodigo(codigo);
+    	return correrCodigo(codigo).toString();
 	}
 	
-	public void sentiment_analysis(String texto){
+	public String sentiment_analysis(String texto){
 		//	Obtiene el positivismo de cada una de las sentencias dentro de un texto
 		//	http://www.nltk.org/howto/sentiment.html
 		//	es necesario bajarse el VaderLexicon desde nltk.download()
@@ -184,7 +179,7 @@ public class NLTK implements Union {
 				+"\t\tprint('{0}: {1}, '.format(k, ss[k]), end='')\n"
 				+"\tprint()";
 		
-		correrCodigo(codigo);	
+		return correrCodigo(codigo).toString();	
 	}
 	
 	@Override
