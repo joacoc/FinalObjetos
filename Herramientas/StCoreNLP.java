@@ -140,6 +140,7 @@ public class StCoreNLP extends HerramientaAbs {
 		 Tree tree = sentence.get(SentimentAnnotatedTree.class);
 		 int score = RNNCoreAnnotations.getPredictedClass(tree);
 		 string = string + "SENTENCIA " + i + ": " + sentimentText[score] + "\n";
+		 i++;
 		}
 		return string;
 	}

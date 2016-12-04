@@ -17,52 +17,11 @@ public class main {
 				+ "perhaps in early 2014, followed by presidential elections upon the forming "
 				+ "of a new parliament.";
 		
-
-
-//		String s = "Hey dude, that was a great film by the way.\n"
-//				+ "I love you.\n"
-//				+ "This SUX.\n"
-//				+ "Cheers!";
-		// String s = "No, no juegues con eso.\n"
-				// + "Sos un idiota.\n"
-				// + "Dedicate a otra cosa.\n"
-				// + "Pasame una carta de Esconder.";
 		//----------------NLTK------------------------------
 		
-
-		//Si paso el string con '\n' se rompe en NLTK.
-		//Para el sentiment analysis si el idioma no es en castellano 
-		//hay que traducirlo. 
-		//Para traducirlo se utiliza la libreria de python 'goslate'
-		//que utiliza los servicios de google para traducir el texto.
-		//ATENCION: Puede ser que el servicio se caiga. Esto puede resultar un problema en la salida.
+		/*NLTK nltk = new NLTK();
+		nltk.parse(s);*/
 		
-		s = s.replaceAll("\n", " ");
-		NLTK nltk = new NLTK();
-		nltk.sentiment_analysis(s);
-	
-		//----------------Chat bot------------------------------
-		/*
-        ChatterBotFactory factory = new ChatterBotFactory();
-
-        ChatterBot bot1 = factory.create(ChatterBotType.CLEVERBOT);
-        ChatterBotSession bot1session = bot1.createSession();
-
-        Scanner keyboard = new Scanner(System.in);
-        String respuesta;
-        String sentencia = "Hola";
-        
-        while (true) {
-            
-            respuesta = bot1session.think(sentencia);
-            
-            System.out.println("\nbot1> " + respuesta);
-            
-            System.out.println("\nIngrese una sentencia:\n");
-            sentencia = keyboard.nextLine();
-        }
-        */
-
 		//----------------OpenNLP------------------------------
 		
 		/*System.out.println("OPENNLP: ");
@@ -116,10 +75,9 @@ public class main {
 		//core.sentiment_analysis(st);
 		//core.coreference(s);
 		
-		
-		
-		
-		InterfazUsuario interfaz = new InterfazUsuario();
+		Freeling freeling = new Freeling();
+		System.out.println(freeling.tokenizar(s));
+		//InterfazUsuario interfaz = new InterfazUsuario();
 
 	}
 

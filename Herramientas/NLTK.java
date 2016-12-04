@@ -11,7 +11,7 @@ import javax.script.ScriptEngine;
 import javax.script.ScriptEngineManager;
 import javax.script.ScriptException;
 
-public class NLTK implements Union {
+public class NLTK extends HerramientaAbs {
 
 	//NLTK esta compilado en python, por lo tanto 
 	//	se tiene que ejecutar utilizando un interprete de python
@@ -98,6 +98,8 @@ public class NLTK implements Union {
 				+"\t print(t)\n";
     	
     	System.out.println(correrCodigo(codigo));
+    	
+    	return "PROXIMAMENTE";
 	}
 
 	@Override
@@ -127,6 +129,7 @@ public class NLTK implements Union {
 	@Override
 	public String name_entity_recognizer (String texto) {
 		//TODO
+		return "";
 	}
 
 	@Override
@@ -148,8 +151,9 @@ public class NLTK implements Union {
 
     	String codigo = "import nltk\n"
     			+"sent_tokenizer = nltk.tokenize.PunktSentenceTokenizer()\n"	
-				+"sent_tokenizer.tokenize( \" " +texto +" \" )\n";
-		
+				+"sent_tokenizer = sent_tokenizer.tokenize( \" " +texto +" \" )\n"
+				+"print(sent_tokenizer)" ;
+    	
     	return correrCodigo(codigo).toString();
 	}
 	
