@@ -110,16 +110,11 @@ public class OpenNLP extends HerramientaAbs {
 				whitespaceTokenizerLine = WhitespaceTokenizer.INSTANCE
 						.tokenize(line);
 				tags = tagger.tag(whitespaceTokenizerLine);
- 
-				POSSample sample = new POSSample(whitespaceTokenizerLine, tags);
-				System.out.println(sample.toString());
-					perfMon.incrementCounter();
 			}
 		} catch (IOException e1) {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		}
-		perfMon.stopAndPrintFinalResult();
 	 
 		// chunker
 		InputStream is = null;

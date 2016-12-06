@@ -1,7 +1,9 @@
 package InterfazGrafica;
 
 import java.awt.Color;
-
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.IOException;
 
 import Herramientas.HerramientaAbs;
 
@@ -35,6 +37,7 @@ public class Procesamiento extends javax.swing.JFrame {
          backButton = new javax.swing.JButton();
          jLabel5 = new javax.swing.JLabel();
          jScrollPane3 = new javax.swing.JScrollPane();
+         jScrollPane4 = new javax.swing.JScrollPane();
          Referencias = new javax.swing.JTextArea();
 
          setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -56,7 +59,14 @@ public class Procesamiento extends javax.swing.JFrame {
          aplicar.setEnabled(false);
          aplicar.addActionListener(new java.awt.event.ActionListener() {
              public void actionPerformed(java.awt.event.ActionEvent evt) {
-                 aplicarActionPerformed(evt);
+                 
+					try {
+						aplicarActionPerformed(evt);
+					} catch (IOException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+				
              }
          });
 
@@ -72,7 +82,7 @@ public class Procesamiento extends javax.swing.JFrame {
          Referencias.setEditable(false);
          Referencias.setColumns(20);
          Referencias.setRows(5);
-         jScrollPane2.setViewportView(Referencias);
+         jScrollPane4.setViewportView(Referencias);
 
          jLabel5.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
          jLabel5.setText("Referencias");
@@ -80,7 +90,7 @@ public class Procesamiento extends javax.swing.JFrame {
          TextOut.setEditable(false);
          TextOut.setColumns(20);
          TextOut.setRows(5);
-         jScrollPane2.setViewportView(TextOut);
+         jScrollPane3.setViewportView(TextOut);
 
          jLabel1.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
          jLabel1.setText("Ingresar texto...");
@@ -108,24 +118,27 @@ public class Procesamiento extends javax.swing.JFrame {
              .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                  .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                      .addGroup(layout.createSequentialGroup()
-                         .addGap(62, 62, 62)
-                         .addComponent(jLabel3)
-                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                         .addGap(0, 27, Short.MAX_VALUE)
+                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                             .addGroup(layout.createSequentialGroup()
+                                 .addGap(62, 62, 62)
+                                 .addComponent(jLabel3))
+                             .addGroup(layout.createSequentialGroup()
+                                 .addContainerGap()
+                                 .addComponent(optMetodos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                         .addComponent(aplicar))
+                     .addGroup(layout.createSequentialGroup()
+                         .addContainerGap()
                          .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                              .addComponent(jLabel5)
-                             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                 .addComponent(aplicar)
-                                 .addComponent(optMetodos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                             .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 259, javax.swing.GroupLayout.PREFERRED_SIZE)
-                             .addComponent(backButton))
-                         .addGap(12, 12, 12)))
+                             .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 491, javax.swing.GroupLayout.PREFERRED_SIZE)
+                             .addComponent(backButton))))
+                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 17, Short.MAX_VALUE)
                  .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                      .addComponent(jLabel2)
                      .addComponent(jLabel1)
                      .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 802, Short.MAX_VALUE)
-                     .addComponent(jScrollPane2))
+                     .addComponent(jScrollPane3))
                  .addContainerGap())
              .addGroup(layout.createSequentialGroup()
                  .addContainerGap()
@@ -145,21 +158,21 @@ public class Procesamiento extends javax.swing.JFrame {
                          .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 312, javax.swing.GroupLayout.PREFERRED_SIZE)
                          .addGap(30, 30, 30)
                          .addComponent(jLabel2)
-                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                         .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 312, javax.swing.GroupLayout.PREFERRED_SIZE)
-                         .addGap(37, 37, 37))
+                         .addGap(18, 18, 18)
+                         .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 312, javax.swing.GroupLayout.PREFERRED_SIZE)
+                         .addGap(25, 25, 25))
                      .addGroup(layout.createSequentialGroup()
                          .addGap(39, 39, 39)
                          .addComponent(jLabel3)
-                         .addGap(43, 43, 43)
-                         .addComponent(optMetodos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                         .addComponent(aplicar)
-                         .addGap(38, 38, 38)
+                         .addGap(28, 28, 28)
+                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                             .addComponent(optMetodos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                             .addComponent(aplicar))
+                         .addGap(18, 18, 18)
                          .addComponent(jLabel5)
                          .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                         .addComponent(jScrollPane3)
-                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                         .addComponent(jScrollPane4)
+                         .addGap(23, 23, 23)
                          .addComponent(backButton, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
                          .addContainerGap())))
          );
@@ -183,10 +196,19 @@ public class Procesamiento extends javax.swing.JFrame {
     }  
     
     
-    //private void addReferencias 
+    private void addReferencias (String path) throws IOException{
+		    	Referencias.setText("");
+    			String cadena;
+		        FileReader f = new FileReader(path);
+		        BufferedReader b = new BufferedReader(f);
+		        while((cadena = b.readLine())!=null) {
+		            Referencias.append(cadena + "\n");
+		        }
+		        b.close();
+    }
     
     
-    private void aplicarActionPerformed(java.awt.event.ActionEvent evt) {                                        
+    private void aplicarActionPerformed(java.awt.event.ActionEvent evt) throws IOException{                                        
 				    	
     	if (optMetodos.getSelectedItem().toString() != "Seleccionar metodo" || !TextIn.getText().isEmpty()){
     	
@@ -196,7 +218,10 @@ public class Procesamiento extends javax.swing.JFrame {
 				        	TextOut.setText(herramienta.tokenizar(TextIn.getText()));
 				        break;
 				        case "Chunk":
-				        	TextOut.setText(herramienta.chunk(TextIn.getText()));
+				        	String s =herramienta.chunk(TextIn.getText());
+				        	if (s!="LA HERRAMIENTA NO SOPORTA LA ACCION")
+				        		this.addReferencias("ReferenciasChunk.txt");
+				        	TextOut.setText(s);
 				        	
 				        break;
 				 
@@ -213,6 +238,12 @@ public class Procesamiento extends javax.swing.JFrame {
 				       
 				        case "Etiquetado gramatical":
 				        		TextOut.setText(herramienta.etiquetado_gramatical(TextIn.getText()));
+				        		if (title == "Freeling" && herramienta.lang_ident(TextIn.getText())=="Español"){
+				        				this.addReferencias("Referencias-pos-freeling-es.txt");
+				        		}
+				        		else {
+				        			this.addReferencias("Referencias-pos-en.txt");
+				        		}
 				        break;
 				        
 				        case "Detectar sentencias":
@@ -254,6 +285,7 @@ public class Procesamiento extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
+    private javax.swing.JScrollPane jScrollPane4;
     private javax.swing.JTextArea TextOut;
     private javax.swing.JComboBox<String> optMetodos;
                       

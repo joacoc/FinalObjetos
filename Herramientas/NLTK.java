@@ -99,7 +99,7 @@ public class NLTK extends HerramientaAbs {
     	
     	System.out.println(correrCodigo(codigo));
     	
-    	return "PROXIMAMENTE";
+    	return correrCodigo(codigo).toString();
 	}
 
 	@Override
@@ -128,8 +128,8 @@ public class NLTK extends HerramientaAbs {
 
 	@Override
 	public String name_entity_recognizer (String texto) {
-		//TODO
-		return "";
+		
+		return "LA HERRAMIENTA NO SOPORTA LA ACCION";
 	}
 
 	@Override
@@ -188,7 +188,7 @@ public class NLTK extends HerramientaAbs {
 	
 	@Override
 	public String coreference(String texto){
-		return "No se dispone de correferencia en NLTK."; 
+		return "LA HERRAMIENTA NO SOPORTA LA ACCION"; 
 	}
 
 }
