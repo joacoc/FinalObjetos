@@ -98,6 +98,8 @@ public class NLTK implements Union {
 				+"\t print(t)\n";
     	
     	System.out.println(correrCodigo(codigo));
+    	
+    	return "";
 	}
 
 	@Override
@@ -127,6 +129,7 @@ public class NLTK implements Union {
 	@Override
 	public String name_entity_recognizer (String texto) {
 		//TODO
+		return "";
 	}
 
 	@Override
