@@ -171,19 +171,22 @@ public class NLTK extends HerramientaAbs {
 		
 		StringBuilder traduccion = correrCodigo(codigo_traduccion);
 		
-		String codigo = "import nltk\n"
-				+"from nltk.sentiment.vader import SentimentIntensityAnalyzer\n"
-				+"from nltk import tokenize\n"
-				+"sentences = tokenize.sent_tokenize( \" " +traduccion.toString() +" \" ) \n"
-				+"sid = SentimentIntensityAnalyzer()\n"
-				+"for sentence in sentences:\n"
-				+"\tprint(sentence)\n"
-				+"\tss = sid.polarity_scores(sentence)\n"
-				+"\tfor k in sorted(ss):\n"
-				+"\t\tprint('{0}: {1}, '.format(k, ss[k]), end='')\n"
-				+"\tprint()";
-		
-		return correrCodigo(codigo).toString();	
+		if(traduccion.toString().length()>0){
+			String codigo = "import nltk\n"
+					+"from nltk.sentiment.vader import SentimentIntensityAnalyzer\n"
+					+"from nltk import tokenize\n"
+					+"sentences = tokenize.sent_tokenize( \" " +traduccion.toString() +" \" ) \n"
+					+"sid = SentimentIntensityAnalyzer()\n"
+					+"for sentence in sentences:\n"
+					+"\tprint(sentence)\n"
+					+"\tss = sid.polarity_scores(sentence)\n"
+					+"\tfor k in sorted(ss):\n"
+					+"\t\tprint('{0}: {1}, '.format(k, ss[k]), end='')\n"
+					+"\tprint()";
+			
+			return correrCodigo(codigo).toString();	
+		}else
+			return "0";
 	}
 	
 	@Override
