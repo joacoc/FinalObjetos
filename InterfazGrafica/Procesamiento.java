@@ -118,63 +118,64 @@ public class Procesamiento extends javax.swing.JFrame {
              .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                  .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                      .addGroup(layout.createSequentialGroup()
-                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                             .addGroup(layout.createSequentialGroup()
-                                 .addGap(62, 62, 62)
-                                 .addComponent(jLabel3))
-                             .addGroup(layout.createSequentialGroup()
-                                 .addContainerGap()
-                                 .addComponent(optMetodos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                         .addComponent(aplicar))
-                     .addGroup(layout.createSequentialGroup()
                          .addContainerGap()
                          .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                              .addComponent(jLabel5)
-                             .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 491, javax.swing.GroupLayout.PREFERRED_SIZE)
-                             .addComponent(backButton))))
-                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 17, Short.MAX_VALUE)
-                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                     .addComponent(jLabel2)
-                     .addComponent(jLabel1)
-                     .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 802, Short.MAX_VALUE)
-                     .addComponent(jScrollPane3))
-                 .addContainerGap())
+                             .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 491, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                     .addGroup(layout.createSequentialGroup()
+                         .addContainerGap()
+                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                             .addComponent(aplicar)
+                             .addComponent(optMetodos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                     .addGroup(layout.createSequentialGroup()
+                         .addGap(62, 62, 62)
+                         .addComponent(jLabel3))
+                     .addComponent(jLabel4))
+                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                     .addGroup(layout.createSequentialGroup()
+                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 17, Short.MAX_VALUE)
+                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                             .addComponent(jLabel1)
+                             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                 .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 802, Short.MAX_VALUE)
+                                 .addComponent(jScrollPane3)))
+                         .addContainerGap())
+                     .addGroup(layout.createSequentialGroup()
+                         .addGap(18, 18, 18)
+                         .addComponent(jLabel2)
+                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
              .addGroup(layout.createSequentialGroup()
                  .addContainerGap()
-                 .addComponent(jLabel4)
+                 .addComponent(backButton)
                  .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
          );
          layout.setVerticalGroup(
              layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
              .addGroup(layout.createSequentialGroup()
-                 .addContainerGap()
                  .addComponent(jLabel4)
-                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                     .addGroup(layout.createSequentialGroup()
-                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                         .addComponent(jLabel1)
-                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                         .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 312, javax.swing.GroupLayout.PREFERRED_SIZE)
-                         .addGap(30, 30, 30)
-                         .addComponent(jLabel2)
-                         .addGap(18, 18, 18)
-                         .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 312, javax.swing.GroupLayout.PREFERRED_SIZE)
-                         .addGap(25, 25, 25))
-                     .addGroup(layout.createSequentialGroup()
-                         .addGap(39, 39, 39)
-                         .addComponent(jLabel3)
-                         .addGap(28, 28, 28)
-                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                             .addComponent(optMetodos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                             .addComponent(aplicar))
-                         .addGap(18, 18, 18)
-                         .addComponent(jLabel5)
-                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                         .addComponent(jScrollPane4)
-                         .addGap(23, 23, 23)
-                         .addComponent(backButton, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
-                         .addContainerGap())))
+                 .addGap(39, 39, 39)
+                 .addComponent(jLabel3)
+                 .addGap(29, 29, 29)
+                 .addComponent(optMetodos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                 .addComponent(aplicar)
+                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                 .addComponent(jLabel5)
+                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                 .addComponent(jScrollPane4)
+                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                 .addComponent(backButton, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
+                 .addGap(5, 5, 5))
+             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                 .addGap(0, 28, Short.MAX_VALUE)
+                 .addComponent(jLabel1)
+                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 345, javax.swing.GroupLayout.PREFERRED_SIZE)
+                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                 .addComponent(jLabel2)
+                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                 .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 345, javax.swing.GroupLayout.PREFERRED_SIZE)
+                 .addGap(45, 45, 45))
          );
 
          pack();
@@ -209,7 +210,7 @@ public class Procesamiento extends javax.swing.JFrame {
     
     
     private void aplicarActionPerformed(java.awt.event.ActionEvent evt) throws IOException{                                        
-				    	
+		Referencias.setText("");
     	if (optMetodos.getSelectedItem().toString() != "Seleccionar metodo" || !TextIn.getText().isEmpty()){
     	
     			switch (optMetodos.getSelectedItem().toString()) {
@@ -222,10 +223,15 @@ public class Procesamiento extends javax.swing.JFrame {
 				        	if (s!="LA HERRAMIENTA NO SOPORTA LA ACCION")
 				        		this.addReferencias("ReferenciasChunk.txt");
 				        	TextOut.setText(s);
-				        	
 				        break;
-				 
 				        case "Analisis gramatical":
+			        		if (title == "Freeling" && herramienta.lang_ident(TextIn.getText())=="Español"){
+			        				this.addReferencias("Referencias-parse-es.txt");
+			        		}
+			        		else {
+			        			this.addReferencias("Referencias-parse-en.txt");
+			        		}
+				        	
 				        	TextOut.setText(herramienta.parse(TextIn.getText()));
 				        break;
 				        case "Identificar lenguaje":
@@ -233,6 +239,8 @@ public class Procesamiento extends javax.swing.JFrame {
 				        break;
 				        
 				        case "Reconocer nombre entidades":
+				        	if (title == "Freeling")
+				        		this.addReferencias("ReferenciasNEC.txt");
 				        	TextOut.setText(herramienta.name_entity_recognizer(TextIn.getText()));
 				        break;
 				       

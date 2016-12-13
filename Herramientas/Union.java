@@ -16,3 +16,4 @@ public interface Union{
 	public String coreference (String texto);
 	
 }
+

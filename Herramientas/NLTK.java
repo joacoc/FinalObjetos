@@ -99,7 +99,7 @@ public class NLTK extends HerramientaAbs {
     	
     	System.out.println(correrCodigo(codigo));
     	
-    	return correrCodigo(codigo).toString();
+    	return "PROXIMAMENTE";
 	}
 
 	@Override

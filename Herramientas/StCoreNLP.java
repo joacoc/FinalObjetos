@@ -45,15 +45,14 @@ public class StCoreNLP extends HerramientaAbs {
 		
 	}
 
+
 	
 	public String parse(String texto) {
 		LexicalizedParser lp = LexicalizedParser.loadModel("edu/stanford/nlp/models/lexparser/englishPCFG.ser.gz");
 		TokenizerFactory<CoreLabel> tokenizerFactory = PTBTokenizer.factory(new CoreLabelTokenFactory(), "");
 		List<CoreLabel> lista = tokenizerFactory.getTokenizer(new StringReader(texto)).tokenize();
-		Tree parse = lp.apply(lista);
-		parse.pennPrint();
-	
-		return "VER COMO RETORNAR STRING";
+		Tree parse = lp.apply(lista);		
+		return parse.pennString();
 	      
 	}
 
@@ -93,7 +92,7 @@ public class StCoreNLP extends HerramientaAbs {
 	
 	
 	public String name_entity_recognizer (String texto){
-		return identifyNER(texto, "data/StanfordCore/english.conll.4class.distsim.crf.ser.gz").toString();
+		return identifyNER(texto, "edu/stanford/nlp/models/ner/english.conll.4class.distsim.crf.ser.gz").toString();
 	}
 
 
@@ -101,8 +100,7 @@ public class StCoreNLP extends HerramientaAbs {
 			
 		MaxentTagger tagger = new MaxentTagger ("data/StanfordCore/english-bidirectional-distsim.tagger");	
 		return tagger.tagString(texto) ;
-		
-		
+	
 	}
 
 
