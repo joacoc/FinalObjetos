@@ -23,11 +23,12 @@ public class InterfazChatBot extends javax.swing.JFrame {
 	String msj_usuario_id = null;
 	String msj_usuario_txt = null;
 	HashMap<String,ArrayList<String>> hash;
+	boolean boton = false;
 	
 	public InterfazChatBot() throws IOException{
 
 		this.chatBot = new ChatBot("key",this);
-		this.herramienta = new StCoreNLP();
+		this.herramienta = new NLTK();
 		hash = new HashMap<>();
 		
 		initComponents();
@@ -87,7 +88,9 @@ public class InterfazChatBot extends javax.swing.JFrame {
         helpMenu = new javax.swing.JMenu();
         contentsMenuItem = new javax.swing.JMenuItem();
         aboutMenuItem = new javax.swing.JMenuItem();
-
+        nltkButton = new javax.swing.JRadioButton();
+        stanfordButton = new javax.swing.JRadioButton();
+        
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         oAuth_TF.setText("oAuth");
@@ -143,57 +146,33 @@ public class InterfazChatBot extends javax.swing.JFrame {
         });
         
 
-        button_ejecutarComando.setText("Ejecutar");
+        button_ejecutarComando.setText("Analisis sentimental");
         button_ejecutarComando.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
             	ArrayList<String> keys = new ArrayList<>(hash.keySet());
-
+            	ArrayList<String> comentarios;
+            	double promedio;
+            	HerramientaAbs herramienta;
+            	
         		output_TA.append("////////////////////////\n\n\n\n");
         		output_TA.append("Resultados del analisis sentimental: ");
-        		
-            	for(String key : keys){
-            		
-            		float promedio = 0; 
-            		ArrayList<String> values = new ArrayList<>(hash.get(key));
-            		
-            		for(String value : values){
-            				if(value.contains("Positive")){
-            					promedio++;
-            				}else
-            					if(value.contains("Negative")){
-            						promedio--;
-            					}
-            		}
-            		System.out.println("Resultado final: " +(promedio/values.size()));
 
-            		output_TA.append(key+": "+(promedio/values.size())+"\n");
-            	}
-            	/*try {
-            		//Abro el log que contiene toda la informacion	
-					List<String> lista = Files.readAllLines(Paths.get(ChatBot.appData_Dir +"\\hangupsbot.log"));
-					
-					//En la hash se guarda cada uno de las lineas que se lee de cada usuario y luego se saca el promedio
-					hash = new HashMap<>();
-					
-					for(String linea : lista){
-						if(linea.contains("event: c/g/un")){
-				    		obtenerUsuarioLog(linea);
-				    	}
-				    	else 
-				    		if(linea.contains("event: len/tx")){
-				    			msj_usuario_txt = linea.substring(42);
-				    			System.out.println(msj_usuario_txt);
-				    			int valor = Integer.parseInt(herramienta.sentiment_analysis(msj_usuario_txt));
-				    			System.out.println("Usuario: " +msj_usuario_id +"\nMensaje: " +msj_usuario_txt +"\nValor" +valor);
-				    			agregarYcalcular(valor);
-				    		}
-					}
-				} catch (IOException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
+    			//Boton = false; Significa que se quiere usar NLTK, caso contrario Stanford
+        		if(boton){
+        			for(String key : keys){
+    				//Stanford
+        				herramienta = new StCoreNLP();
+        				promedio = herramienta.promedio_sentiment_analysis(hash.get(key));
+                		output_TA.append("Usuario: "+key +"Resultado: " +promedio);
+        			}
+    			}else{
+    				//NLTK
+        			for(String key : keys){
+	    				herramienta = new NLTK();
+	    				promedio = herramienta.promedio_sentiment_analysis(hash.get(key));
+	            		output_TA.append("Usuario: "+key +"Resultado: " +promedio);
+        			}
 				}
-                
-                */
             }
         });
         
@@ -274,6 +253,26 @@ public class InterfazChatBot extends javax.swing.JFrame {
 
 //        setJMenuBar(menuBar);
 
+        nltkButton.setText("NLTK");
+        nltkButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                boton = false;
+                stanfordButton.setSelected(false);
+                nltkButton.setSelected(true);
+            }
+        });
+        nltkButton.setSelected(true);
+
+        stanfordButton.setText("Stanford NLP");
+        stanfordButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                boton = true;
+                stanfordButton.setSelected(true);
+                nltkButton.setSelected(false);
+            }
+        });
+
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -282,67 +281,58 @@ public class InterfazChatBot extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 442, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel1)
-                            .addComponent(jLabel3)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(mensaje_TF, javax.swing.GroupLayout.PREFERRED_SIZE, 342, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(enviar_button)))
-                        .addGap(32, 32, 32)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(jLabel2)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(button_ejecutarComando))
-                            .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 306, Short.MAX_VALUE)))
+                        .addGap(443, 443, 443)
+                        .addComponent(jLabel3))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(login_button)
+                        .addGap(99, 99, 99)
+                        .addComponent(oAuth_reset))
+                    .addComponent(jLabel1)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 401, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 20, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addGroup(layout.createSequentialGroup()
-                                .addComponent(login_button)
-                                .addGap(136, 136, 136)
-                                .addComponent(oAuth_reset))
-                            .addComponent(oAuth_TF, javax.swing.GroupLayout.PREFERRED_SIZE, 286, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addComponent(nltkButton)
+                                .addGap(18, 18, 18)
+                                .addComponent(stanfordButton))
+                            .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 634, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(23, 23, 23))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jLabel2)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(comando_textfield, javax.swing.GroupLayout.PREFERRED_SIZE, 236, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap())
+                        .addComponent(button_ejecutarComando)
+                        .addGap(41, 41, 41))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(oAuth_TF, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(15, 15, 15))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(comando_textfield, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)))
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
+                        .addContainerGap()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(login_button)
                             .addComponent(oAuth_reset))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 7, Short.MAX_VALUE)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel1)
-                            .addComponent(jLabel2)))
-                    .addComponent(button_ejecutarComando))
-                .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane2)
+                            .addComponent(jLabel2)
+                            .addComponent(button_ejecutarComando)
+                            .addComponent(jLabel1))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED))
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 260, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 46, Short.MAX_VALUE)
-                        .addComponent(jLabel3)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGap(13, 13, 13)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(mensaje_TF, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(enviar_button))))
-                .addContainerGap())
+                            .addComponent(nltkButton)
+                            .addComponent(stanfordButton))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 454, Short.MAX_VALUE)
+                    .addComponent(jScrollPane2))
+                .addGap(11, 11, 11)
+                .addComponent(jLabel3))
         );
-
+        
         pack();
         this.setVisible(true);
     }// </editor-fold>                        
@@ -384,10 +374,9 @@ public class InterfazChatBot extends javax.swing.JFrame {
     			msj_usuario_txt = texto.substring(31);
     			chat_TA.append(msj_usuario_id +": " +msj_usuario_txt + "\n");
     			
-    			herramienta.tokenizar(texto);
-    			String valor = herramienta.sentiment_analysis(msj_usuario_txt);
-    			agregarYcalcular(valor);
-    			chat_TA.append(String.valueOf(valor));
+    			//Obtengo el valor sentimental de la oracion.
+//    			String valor = herramienta.sentiment_analysis(msj_usuario_txt);
+    			agregarUltimoMsj();
 			}
     }
     
@@ -405,14 +394,13 @@ public class InterfazChatBot extends javax.swing.JFrame {
     	}
     }
     
-    public void agregarYcalcular(String valor){
-    	System.out.println(valor);
+    public void agregarUltimoMsj(){
     	if(hash.containsKey(msj_usuario_id)){
     		ArrayList<String> valores = (ArrayList<String>)hash.get(msj_usuario_id);
-    		valores.add(valor);
+    		valores.add(msj_usuario_txt);
     	}else{
     		ArrayList<String> valores = new ArrayList<String>();
-    		valores.add(valor);
+    		valores.add(msj_usuario_txt);
     		hash.put(msj_usuario_id, valores);
     	}
     }
@@ -446,6 +434,8 @@ public class InterfazChatBot extends javax.swing.JFrame {
     private javax.swing.JMenuItem pasteMenuItem;
     private javax.swing.JMenuItem saveAsMenuItem;
     private javax.swing.JMenuItem saveMenuItem;
+    private javax.swing.JRadioButton stanfordButton;
+    private javax.swing.JRadioButton nltkButton;
     // End of variables declaration                   
 
 }

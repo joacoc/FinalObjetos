@@ -6,6 +6,7 @@ import java.io.File;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
+import java.io.PrintWriter;
 
 import InterfazGrafica.InterfazChatBot;
 
@@ -29,6 +30,7 @@ public class ChatBot extends Thread {
 		//Se corre en un thread aparte sino la GUI nunca se actualiza.
 		Process p;
 		try {
+//			p = Runtime.getRuntime().exec("python");
 			p = Runtime.getRuntime().exec("python .\\hangoutsbot-master\\hangupsbot\\hangupsbot.py");
 	    	in = new BufferedReader(new InputStreamReader(p.getInputStream()));
 	    	out = new BufferedWriter(new OutputStreamWriter(p.getOutputStream()));
@@ -42,7 +44,15 @@ public class ChatBot extends Thread {
 	    			inicializo = true;
 	    			System.out.println("Bot inicializado");
 	    		}
-	    		interfaz.addTexto_Output(linea);
+	    		
+	    		if(linea.contains("Sign in with your Google account")){
+	    			interfaz.addTexto_Output( "\n\nSe necesita configurar el bot! \n"
+	    					+ "Es necesario que para logear antes tenga configurado el bot.\n"
+	    					+ "Para eso, dentro de la consola de comandos vaya a la carpeta donde se encuentra el hangouts bot y ejecute el siguiente comando y siga los pasos.\n"
+	    					+ "Comando: python hangupsbot");
+	    		}else
+	    			interfaz.addTexto_Output(linea);
+	    		
 	    		linea = in.readLine();
 	    	}
 		} catch (IOException e) {

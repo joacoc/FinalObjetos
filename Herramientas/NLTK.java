@@ -6,6 +6,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.OutputStream;
+import java.util.ArrayList;
 
 import javax.script.ScriptEngine;
 import javax.script.ScriptEngineManager;
@@ -17,7 +18,7 @@ public class NLTK extends HerramientaAbs {
 	//	se tiene que ejecutar utilizando un interprete de python
 	//	y correr el codigo necesario utilizando el interprete.
 	
-	private StringBuilder correrCodigo(String codigo){
+	public StringBuilder correrCodigo(String codigo){
 		StringBuilder stringBuilder = null;
 		
         try{
@@ -32,8 +33,7 @@ public class NLTK extends HerramientaAbs {
         	String linea = in.readLine();    
         	
         	while(linea != null){
-        		stringBuilder.append(linea);
-        		System.out.println(linea);
+        		stringBuilder.append(linea+"\n");
         		linea = in.readLine();
         	}
         	
@@ -165,17 +165,19 @@ public class NLTK extends HerramientaAbs {
 		//TODO:
 		//	Primero hay que chequear el idioma del texto, si esta en espanol hay que traducirlo al ingles
 		
-		String codigo_traduccion = "import goslate\n"
-							+"gs = goslate.Goslate()\n"
-							+"print(gs.translate('"+texto+"','en'))";
+//		String codigo_traduccion = "import goslate\n"
+//							+"gs = goslate.Goslate()\n"
+//							+"print(gs.translate('"+texto+"','en'))";
 		
-		StringBuilder traduccion = correrCodigo(codigo_traduccion);
+//		StringBuilder traduccion = correrCodigo(codigo_traduccion);
 		
-		if(traduccion.toString().length()>0){
+//		if(traduccion.toString().length()>0){
+		if(texto.length()>0){
 			String codigo = "import nltk\n"
 					+"from nltk.sentiment.vader import SentimentIntensityAnalyzer\n"
 					+"from nltk import tokenize\n"
-					+"sentences = tokenize.sent_tokenize( \" " +traduccion.toString() +" \" ) \n"
+//					+"sentences = tokenize.sent_tokenize( \" " +traduccion.toString() +" \" ) \n"
+					+"sentences = tokenize.sent_tokenize( \" " +texto +" \" ) \n"
 					+"sid = SentimentIntensityAnalyzer()\n"
 					+"for sentence in sentences:\n"
 					+"\tprint(sentence)\n"
@@ -184,6 +186,7 @@ public class NLTK extends HerramientaAbs {
 					+"\t\tprint('{0}: {1}, '.format(k, ss[k]), end='')\n"
 					+"\tprint()";
 			
+		
 			return correrCodigo(codigo).toString();	
 		}else
 			return "0";
@@ -194,4 +197,38 @@ public class NLTK extends HerramientaAbs {
 		return "LA HERRAMIENTA NO SOPORTA LA ACCION"; 
 	}
 
+	public double promedio_sentiment_analysis(ArrayList<String> resultados) {
+		double aux = 0;
+		double cant = resultados.size();
+		
+		//Los resultados son de la forma: 
+		//
+		//		I'm so happy !. 
+		//		compound: 0.6468, neg: 0.0, neu: 0.412, pos: 0.588.
+		//		
+		//Por lo tanto solo me importa el compound, que es el "promedio" de los resultados.
+		
+		for(String s : resultados){
+			
+			//Remuevo la primer oracion.
+			s = s.substring(s.indexOf('\n')+1);
+			
+			//Remuevo la palabra"compbound".
+			s = s.substring(9);
+			StringBuilder s_aux = new StringBuilder();
+			
+			for(int i = 0; i < s.length(); i++){
+				char c = s.charAt(i);
+				//Termine de leer el valor
+				if(s.charAt(i)==',')
+					break;
+				else{
+					s_aux.append(String.valueOf(c));
+				}
+			}
+			aux = Double.valueOf(s_aux.toString());
+		}
+		return aux/cant;
+	}
+	
 }

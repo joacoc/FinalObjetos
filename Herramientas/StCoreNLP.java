@@ -1,6 +1,7 @@
 package Herramientas;
 
 import java.io.StringReader;
+import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.LinkedHashSet;
 import java.util.List;
@@ -127,7 +128,6 @@ public class StCoreNLP extends HerramientaAbs {
 
 	
 	public String sentiment_analysis (String texto){
-		
 		Properties props = new Properties();
 		props.setProperty("annotators", "tokenize, ssplit, parse, sentiment");
 		StanfordCoreNLP pipeline = new StanfordCoreNLP(props);
@@ -154,14 +154,47 @@ public class StCoreNLP extends HerramientaAbs {
 	    StanfordCoreNLP pipeline = new StanfordCoreNLP(props);
 	    pipeline.annotate(document);
 	    String string="";
+	    
 	    //TODO: A que libreria pertenece? 
 	    /*
 	    for (CorefChain cc : document.get(CorefCoreAnnotations.CorefChainAnnotation.class).values()) {
 	    	string = string + cc + "\n";
 	    }
 	    */
-	    return string;
 	    
+	    return string;
 	  }
+
+
+	@Override
+	public double promedio_sentiment_analysis(ArrayList<String> resultados) {
+		double aux = 0;
+		double cant = resultados.size();
+		
+
+		//Los resultados son de la forma: 
+		//
+		//		I'm so happy !. 
+		//		SENTENCIA 1 : Very Positive
+		//		
+		//Por lo tanto solo me importa el valor despues de ':', y darle un valor numerico para sacar el promedio.
+		
+		
+		for(String s : resultados){
+			cant++;
+			if(s.contains("Very Negative")){
+				aux--;
+			}else
+				if(s.contains("Negative")){
+					aux = aux - 0.5;
+				}else
+					if(s.contains("Positive"))
+						aux = aux + 0.5;
+					else
+						if(s.contains("Very Positive"))
+							aux++;
+		}
+		return aux/cant;
+	}
 		
 }

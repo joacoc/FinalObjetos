@@ -1,5 +1,7 @@
 package Herramientas;
 
+import java.util.ArrayList;
+
 import edu.upc.freeling.ChartParser;
 import edu.upc.freeling.Depnode;
 import edu.upc.freeling.HmmTagger;
@@ -397,10 +399,10 @@ public class Freeling extends HerramientaAbs{
 		return null;
 	}
 
-	
-	
-	
-	
-	
+	@Override
+	public double promedio_sentiment_analysis(ArrayList<String> resultados) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
 	
 }
