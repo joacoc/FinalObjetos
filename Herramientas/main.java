@@ -1,6 +1,5 @@
 package Herramientas;
 
-
 import java.io.IOException;
 
 import InterfazGrafica.InterfazChatBot;
@@ -11,10 +10,11 @@ public class main {
 	public static void main(String[] args) throws IOException {
 		// TODO Auto-generated method stub
 		//System.setProperty("java.library.path", "C:/Users/franc/Dropbox/Workspace/TPFinalObjetos");
-//		String z = "Proclaiming that “the main, most dangerous part of the war is already in the past,” President Petro O. Poroshenko of Ukraine said on Thursday that his office was in constant communication with President Vladimir V. Putin of Russia to sustain a truce in eastern Ukraine, and that Ukraine was now looking ahead to pursue membership in the European Union.";
-//		String s = "Hola mi nombre es Franco. Yo soy de Argentina y juego al basquet.";
-//		String q = "Hi. My name is Frank. I'm from Argentina. I feel bad. Fuck you. I'm so happy !.";
-		
+
+		String z = "Proclaiming that “the main, most dangerous part of the war is already in the past,” President Petro O. Poroshenko of Ukraine said on Thursday that his office was in constant communication with President Vladimir V. Putin of Russia to sustain a truce in eastern Ukraine, and that Ukraine was now looking ahead to pursue membership in the European Union.";
+		String s= "Soy Pablo, naci en Brasil y juego al basquet.";
+		String st="Donald Trump is a new president.";
+		String q = "Hi. My name is Frank. I'm from Argentina. I feel bad. Fuck you. I'm so happy !.";
 		//----------------NLTK------------------------------
 		
 //		NLTK nltk = new NLTK();
@@ -22,13 +22,13 @@ public class main {
 //		System.out.println(nltk.sentiment_analysis(q));
 		
 		//----------------OpenNLP------------------------------
-		/*
+		
 		System.out.println("OPENNLP: ");
 		
 		
 		OpenNLP open = new OpenNLP ();
 		
-		System.out.println();
+		/*System.out.println();
 		System.out.println("ETIQUETADO GRAMATICAL: ");
 		System.out.println();
 		
@@ -41,23 +41,25 @@ public class main {
 		System.out.println(open.chunk(s));
 		System.out.println("PARSE: ");
 		System.out.println();
-		open.parse(s);
+		//open.parse("The quick brown fox jumps over the lazy dog.");
 		System.out.println();
-		//String op= "Pierre Vinken, 61 years old, will join the board as a nonexecutive director Nov. 29. Mr. Vinken is chairman of Elsevier N.V., the Dutch publishing group. Rudolph Agnew, 55 years old and former chairman of Consolidated Gold Fields PLC, was named a director of this British industrial conglomerate.";
+		String op= "Pierre Vinken, 61 years old, will join the board as a nonexecutive director Nov. 29. Mr. Vinken is chairman of Elsevier N.V., the Dutch publishing group. Rudolph Agnew, 55 years old and former chairman of Consolidated Gold Fields PLC, was named a director of this British industrial conglomerate.";
+		String o = "John is strong. He's play rugby.";
 		System.out.println("NAME FINDER ");
 		System.out.println();
 		
 		System.out.println(open.name_entity_recognizer(s));
 		System.out.println("SENTENCE DETECT ");
-		System.out.println(open.sentence_detect(s));
-		
-		//open.coreference(op);
+		System.out.println(open.sentence_detect(s));*/
 		
 		
-		System.out.println();
+		System.out.println(open.coreference("John is strong. He's play rugby."));
+		
+		
+		
 		System.out.println();
 	
-		*/
+		
 		
 		//------------------StanfordCoreNLP---------------------
 /*		
@@ -76,19 +78,28 @@ public class main {
 		core.name_entity_recognizer(s);
 		core.sentiment_analysis(s);
 		//core.coreference(s);
-	*/	
+		 
+		 
 //		Freeling freeling = new Freeling();
 		//System.out.println(freeling.tokenizar(s));
-		//System.out.println(freeling.lang_ident(s));
+		System.out.println(freeling.lang_ident(s));
 		//freeling.chunk(s);
-		/*System.out.println("-----------------Etiquetado gramatical-----------------");
-		System.out.println(freeling.etiquetado_gramatical("askadisn"));*/
-		/*System.out.println("-----------------NER-----------------");
-		freeling.name_entity_recognizer(s);
+		System.out.println("-----------------Etiquetado gramatical-----------------");
+		//System.out.println(freeling.etiquetado_gramatical("askadisn"));
+		System.out.println("-----------------NER-----------------");
+		System.out.println(freeling.name_entity_recognizer(s));
 		System.out.println("-----------------Parser-----------------");
 		System.out.println(freeling.parse(s));
 		System.out.println("-----------------Sentence detector-----------------");
-		System.out.println(freeling.sentence_detect(s));*/
+
+		System.out.println(freeling.sentence_detect(s));
+		*/
+		
+		
+		//InterfazUsuario interfaz = new InterfazUsuario();
+
+//		System.out.println(freeling.sentence_detect(s));*/
+		
 		InterfazUsuario interfaz = new InterfazUsuario();
 		
 	}
