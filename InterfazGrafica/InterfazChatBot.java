@@ -150,27 +150,41 @@ public class InterfazChatBot extends javax.swing.JFrame {
         button_ejecutarComando.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
             	ArrayList<String> keys = new ArrayList<>(hash.keySet());
-            	ArrayList<String> comentarios;
+            	ArrayList<String> res_comentarios;
             	double promedio;
             	HerramientaAbs herramienta;
             	
         		output_TA.append("////////////////////////\n\n\n\n");
-        		output_TA.append("Resultados del analisis sentimental: ");
+        		output_TA.append("Resultados del analisis sentimental: \n");
 
     			//Boton = false; Significa que se quiere usar NLTK, caso contrario Stanford
         		if(boton){
-        			for(String key : keys){
     				//Stanford
+        			for(String key : keys){
+        				
+        				res_comentarios = new ArrayList<>();
+        				promedio = 0;
         				herramienta = new StCoreNLP();
-        				promedio = herramienta.promedio_sentiment_analysis(hash.get(key));
-                		output_TA.append("Usuario: "+key +"Resultado: " +promedio);
+        				for(String txt : hash.get(key)){
+	    					res_comentarios.add( herramienta.sentiment_analysis(txt) );
+	    				}
+        				promedio = herramienta.promedio_sentiment_analysis(res_comentarios);
+                		output_TA.append("Usuario: "+key +"\t Resultado: " +promedio);
         			}
     			}else{
     				//NLTK
         			for(String key : keys){
-	    				herramienta = new NLTK();
-	    				promedio = herramienta.promedio_sentiment_analysis(hash.get(key));
-	            		output_TA.append("Usuario: "+key +"Resultado: " +promedio);
+
+        				res_comentarios = new ArrayList<>();
+        				promedio = 0;
+        				herramienta = new NLTK();
+        				
+	    				for(String txt : hash.get(key)){
+	    					res_comentarios.add( herramienta.sentiment_analysis(txt) );
+	    				}
+	    				
+    					promedio = herramienta.promedio_sentiment_analysis(res_comentarios);
+	            		output_TA.append("Usuario: "+key +"\t Resultado: " +promedio);
         			}
 				}
             }
@@ -372,6 +386,15 @@ public class InterfazChatBot extends javax.swing.JFrame {
     	else 
     		if(texto.contains("event: len/tx")){
     			msj_usuario_txt = texto.substring(31);
+    			
+    			//Limpio el mensaje
+    			for(int k=0; k<msj_usuario_txt.length();k++){
+    				if(msj_usuario_txt.charAt(k) == '/'){
+    					msj_usuario_txt = msj_usuario_txt.substring(k+1);
+    					break;
+    				}
+    			}
+    			
     			chat_TA.append(msj_usuario_id +": " +msj_usuario_txt + "\n");
     			
     			//Obtengo el valor sentimental de la oracion.

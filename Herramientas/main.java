@@ -11,15 +11,15 @@ public class main {
 	public static void main(String[] args) throws IOException {
 		// TODO Auto-generated method stub
 		//System.setProperty("java.library.path", "C:/Users/franc/Dropbox/Workspace/TPFinalObjetos");
-		String z = "Proclaiming that “the main, most dangerous part of the war is already in the past,” President Petro O. Poroshenko of Ukraine said on Thursday that his office was in constant communication with President Vladimir V. Putin of Russia to sustain a truce in eastern Ukraine, and that Ukraine was now looking ahead to pursue membership in the European Union.";
-		String s = "Hola mi nombre es Franco. Yo soy de Argentina y juego al basquet.";
-		String q = "Hi. My name is Frank. I'm from Argentina. I feel bad. Fuck you. I'm so happy !.";
+//		String z = "Proclaiming that “the main, most dangerous part of the war is already in the past,” President Petro O. Poroshenko of Ukraine said on Thursday that his office was in constant communication with President Vladimir V. Putin of Russia to sustain a truce in eastern Ukraine, and that Ukraine was now looking ahead to pursue membership in the European Union.";
+//		String s = "Hola mi nombre es Franco. Yo soy de Argentina y juego al basquet.";
+//		String q = "Hi. My name is Frank. I'm from Argentina. I feel bad. Fuck you. I'm so happy !.";
 		
 		//----------------NLTK------------------------------
 		
-		NLTK nltk = new NLTK();
+//		NLTK nltk = new NLTK();
 //		nltk.parse(s);
-		System.out.println(nltk.sentiment_analysis(q));
+//		System.out.println(nltk.sentiment_analysis(q));
 		
 		//----------------OpenNLP------------------------------
 		/*
@@ -89,7 +89,7 @@ public class main {
 		System.out.println(freeling.parse(s));
 		System.out.println("-----------------Sentence detector-----------------");
 		System.out.println(freeling.sentence_detect(s));*/
-//		InterfazUsuario interfaz = new InterfazUsuario();
+		InterfazUsuario interfaz = new InterfazUsuario();
 		
 	}
 
