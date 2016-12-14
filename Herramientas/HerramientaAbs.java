@@ -1,6 +1,6 @@
 package Herramientas;
 
-
+import java.util.ArrayList;
 
 public abstract class HerramientaAbs implements Union {
 
@@ -31,6 +31,7 @@ public abstract class HerramientaAbs implements Union {
 	@Override
 	public abstract String sentiment_analysis(String texto);
 
+	public abstract double promedio_sentiment_analysis(ArrayList<String> resultados);
 
 	@Override
 	public abstract String coreference(String texto);

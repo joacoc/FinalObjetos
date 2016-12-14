@@ -1,5 +1,7 @@
 package Herramientas;
 
+import java.util.ArrayList;
+
 import edu.upc.freeling.ChartParser;
 import edu.upc.freeling.HmmTagger;
 import edu.upc.freeling.LangIdent;
@@ -215,6 +217,7 @@ public class Freeling extends HerramientaAbs{
 		return "LA HERRAMIENTA NO SOPORTA LA ACCION";
 	}
 
+<<<<<<< HEAD
 	
 	private Maco crearMaco (String len){
 		MacoOptions op = new MacoOptions(len);
@@ -237,5 +240,12 @@ public class Freeling extends HerramientaAbs{
 	
 	
 	
+=======
+	@Override
+	public double promedio_sentiment_analysis(ArrayList<String> resultados) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+>>>>>>> d6bac00a03530237aefcd784f81229258ae72615
 	
 }

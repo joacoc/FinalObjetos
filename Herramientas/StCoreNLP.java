@@ -1,28 +1,28 @@
 package Herramientas;
 
 import java.io.StringReader;
+import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Properties;
-import edu.stanford.nlp.coref.CorefCoreAnnotations;
-import edu.stanford.nlp.coref.data.CorefChain;
+
+import edu.stanford.nlp.ie.crf.CRFClassifier;
 import edu.stanford.nlp.ling.CoreAnnotations;
 import edu.stanford.nlp.ling.CoreAnnotations.SentencesAnnotation;
 import edu.stanford.nlp.ling.CoreAnnotations.TextAnnotation;
-import edu.stanford.nlp.pipeline.Annotation;
-import edu.stanford.nlp.pipeline.StanfordCoreNLP;
-import edu.stanford.nlp.util.CoreMap;
-import edu.stanford.nlp.ie.crf.CRFClassifier;
 import edu.stanford.nlp.ling.CoreLabel;
 import edu.stanford.nlp.neural.rnn.RNNCoreAnnotations;
 import edu.stanford.nlp.parser.lexparser.LexicalizedParser;
+import edu.stanford.nlp.pipeline.Annotation;
+import edu.stanford.nlp.pipeline.StanfordCoreNLP;
 import edu.stanford.nlp.process.CoreLabelTokenFactory;
 import edu.stanford.nlp.process.PTBTokenizer;
 import edu.stanford.nlp.process.TokenizerFactory;
 import edu.stanford.nlp.sentiment.SentimentCoreAnnotations.SentimentAnnotatedTree;
 import edu.stanford.nlp.tagger.maxent.MaxentTagger;
 import edu.stanford.nlp.trees.Tree;
+import edu.stanford.nlp.util.CoreMap;
 
 public class StCoreNLP extends HerramientaAbs {
 	
@@ -126,11 +126,10 @@ public class StCoreNLP extends HerramientaAbs {
 
 	
 	public String sentiment_analysis (String texto){
-		
 		Properties props = new Properties();
 		props.setProperty("annotators", "tokenize, ssplit, parse, sentiment");
 		StanfordCoreNLP pipeline = new StanfordCoreNLP(props);
-		 Annotation annotation = pipeline.process(texto);
+		Annotation annotation = pipeline.process(texto);
 		String[] sentimentText = { "Very Negative","Negative", "Neutral", "Positive", "Very Positive"};
 		String string="";
 		int i=1;
@@ -153,11 +152,47 @@ public class StCoreNLP extends HerramientaAbs {
 	    StanfordCoreNLP pipeline = new StanfordCoreNLP(props);
 	    pipeline.annotate(document);
 	    String string="";
+	    
+	    //TODO: A que libreria pertenece? 
+	    /*
 	    for (CorefChain cc : document.get(CorefCoreAnnotations.CorefChainAnnotation.class).values()) {
 	    	string = string + cc + "\n";
 	    }
-	    return string;
+	    */
 	    
+	    return string;
 	  }
+
+
+	@Override
+	public double promedio_sentiment_analysis(ArrayList<String> resultados) {
+		double aux = 0;
+		double cant = resultados.size();
+		
+
+		//Los resultados son de la forma: 
+		//
+		//		I'm so happy !. 
+		//		SENTENCIA 1 : Very Positive
+		//		
+		//Por lo tanto solo me importa el valor despues de ':', y darle un valor numerico para sacar el promedio.
+		
+		
+		for(String s : resultados){
+			cant++;
+			if(s.contains("Very Negative")){
+				aux--;
+			}else
+				if(s.contains("Negative")){
+					aux = aux - 0.5;
+				}else
+					if(s.contains("Positive"))
+						aux = aux + 0.5;
+					else
+						if(s.contains("Very Positive"))
+							aux++;
+		}
+		return aux/cant;
+	}
 		
 }

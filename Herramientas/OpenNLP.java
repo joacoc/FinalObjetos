@@ -412,6 +412,12 @@ public class OpenNLP extends HerramientaAbs {
 	public String sentiment_analysis(String texto) {
 		return "LA HERRAMIENTA NO SOPORTA LA ACCION";
 	}
+
+	@Override
+	public double promedio_sentiment_analysis(ArrayList<String> resultados) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
 	
 	
 

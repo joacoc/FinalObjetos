@@ -1,19 +1,33 @@
 package Herramientas;
 
+<<<<<<< HEAD
+=======
+
+import java.io.IOException;
+
+import InterfazGrafica.InterfazChatBot;
+>>>>>>> d6bac00a03530237aefcd784f81229258ae72615
 import InterfazGrafica.InterfazUsuario;
 
 public class main {
 
-	public static void main(String[] args) {
+	public static void main(String[] args) throws IOException {
 		// TODO Auto-generated method stub
 		//System.setProperty("java.library.path", "C:/Users/franc/Dropbox/Workspace/TPFinalObjetos");
 		String z = "Proclaiming that “the main, most dangerous part of the war is already in the past,” President Petro O. Poroshenko of Ukraine said on Thursday that his office was in constant communication with President Vladimir V. Putin of Russia to sustain a truce in eastern Ukraine, and that Ukraine was now looking ahead to pursue membership in the European Union.";
+<<<<<<< HEAD
 		String s= "Soy Pablo, naci en Brasil y juego al basquet.";
 		String st="Donald Trump is a new president.";
+=======
+		String s = "Hola mi nombre es Franco. Yo soy de Argentina y juego al basquet.";
+		String q = "Hi. My name is Frank. I'm from Argentina. I feel bad. Fuck you. I'm so happy !.";
+		
+>>>>>>> d6bac00a03530237aefcd784f81229258ae72615
 		//----------------NLTK------------------------------
 		
-		/*NLTK nltk = new NLTK();
-		nltk.parse(s);*/
+		NLTK nltk = new NLTK();
+//		nltk.parse(s);
+		System.out.println(nltk.sentiment_analysis(q));
 		
 		//----------------OpenNLP------------------------------
 		
@@ -56,7 +70,7 @@ public class main {
 		
 		
 		//------------------StanfordCoreNLP---------------------
-		/*
+/*		
 		System.out.println("STANFORD: ");
 		
 		
@@ -70,10 +84,15 @@ public class main {
 		System.out.println("-----------------Etiquetado gramatical-----------------");
 		core.etiquetado_gramatical(s);
 		core.name_entity_recognizer(s);
-		//core.sentiment_analysis(st);
+		core.sentiment_analysis(s);
 		//core.coreference(s);
+<<<<<<< HEAD
 		*/
 		/*Freeling freeling = new Freeling();
+=======
+	*/	
+//		Freeling freeling = new Freeling();
+>>>>>>> d6bac00a03530237aefcd784f81229258ae72615
 		//System.out.println(freeling.tokenizar(s));
 		System.out.println(freeling.lang_ident(s));
 		//freeling.chunk(s);
@@ -84,12 +103,18 @@ public class main {
 		System.out.println("-----------------Parser-----------------");
 		System.out.println(freeling.parse(s));
 		System.out.println("-----------------Sentence detector-----------------");
+<<<<<<< HEAD
 		System.out.println(freeling.sentence_detect(s));
 		*/
 		
 		
 		//InterfazUsuario interfaz = new InterfazUsuario();
 
+=======
+		System.out.println(freeling.sentence_detect(s));*/
+//		InterfazUsuario interfaz = new InterfazUsuario();
+		
+>>>>>>> d6bac00a03530237aefcd784f81229258ae72615
 	}
 
 }
