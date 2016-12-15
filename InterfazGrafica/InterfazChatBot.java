@@ -32,7 +32,7 @@ public class InterfazChatBot extends javax.swing.JFrame {
 		hash = new HashMap<>();
 		
 		initComponents();
-		
+		this.setTitle("Chatbot");
         try {
             for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
                 if ("Nimbus".equals(info.getName())) {
@@ -115,6 +115,8 @@ public class InterfazChatBot extends javax.swing.JFrame {
         chat_TA.setColumns(20);
         chat_TA.setRows(5);
         chat_TA.setEditable(false);
+        chat_TA.setLineWrap(true);
+        chat_TA.setWrapStyleWord(true);
         jScrollPane1.setViewportView(chat_TA);
 
         jLabel1.setText("Chat");
@@ -134,6 +136,8 @@ public class InterfazChatBot extends javax.swing.JFrame {
         output_TA.setColumns(20);
         output_TA.setRows(5);
         output_TA.setEditable(false);
+        output_TA.setLineWrap(true);
+        output_TA.setWrapStyleWord(true);
         jScrollPane2.setViewportView(output_TA);
 
         jLabel2.setText("Output");
@@ -149,6 +153,7 @@ public class InterfazChatBot extends javax.swing.JFrame {
         button_ejecutarComando.setText("Analisis sentimental");
         button_ejecutarComando.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
+            	
             	ArrayList<String> keys = new ArrayList<>(hash.keySet());
             	ArrayList<String> res_comentarios;
             	double promedio;

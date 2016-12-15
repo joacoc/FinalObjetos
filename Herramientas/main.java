@@ -1,8 +1,5 @@
 package Herramientas;
 
-
-
-
 import java.io.IOException;
 
 
@@ -29,11 +26,11 @@ public class main {
 
 		//----------------NLTK------------------------------
 		
-	NLTK nltk = new NLTK();
+//	NLTK nltk = new NLTK();
 //		nltk.parse(s);
 
-		System.out.println(nltk.tokenizar("The Stanford NLP Group makes some of our Natural Language Processing software available to everyone! We provide statistical NLP, deep learning NLP, and rule-based NLP tools for major computational linguistics problems, which can be incorporated into applications with human language technology needs. These packages are widely used in industry, academia, and government."
-				+ "This code is actively being developed, and we try to answer questions and fix bugs on a best-effort basis."));
+//		System.out.println(nltk.tokenizar("The Stanford NLP Group makes some of our Natural Language Processing software available to everyone! We provide statistical NLP, deep learning NLP, and rule-based NLP tools for major computational linguistics problems, which can be incorporated into applications with human language technology needs. These packages are widely used in industry, academia, and government."
+//				+ "This code is actively being developed, and we try to answer questions and fix bugs on a best-effort basis."));
 
 
 //		System.out.println(nltk.sentiment_analysis(q));
