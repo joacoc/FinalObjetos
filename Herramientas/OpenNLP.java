@@ -11,10 +11,8 @@ import java.util.List;
 
 import opennlp.tools.chunker.ChunkerME;
 import opennlp.tools.chunker.ChunkerModel;
-import opennlp.tools.cmdline.PerformanceMonitor;
 import opennlp.tools.cmdline.parser.ParserTool;
 import opennlp.tools.cmdline.postag.POSModelLoader;
-import opennlp.tools.coref.DefaultLinker;
 import opennlp.tools.coref.DiscourseEntity;
 import opennlp.tools.coref.Linker;
 import opennlp.tools.coref.LinkerMode;
@@ -23,7 +21,6 @@ import opennlp.tools.coref.mention.DefaultParse;
 import opennlp.tools.coref.mention.Mention;
 import opennlp.tools.namefind.NameFinderME;
 import opennlp.tools.namefind.TokenNameFinderModel;
-import opennlp.tools.parser.AbstractBottomUpParser;
 import opennlp.tools.parser.Parse;
 import opennlp.tools.parser.Parser;
 import opennlp.tools.parser.ParserFactory;
@@ -91,25 +88,6 @@ public class OpenNLP extends HerramientaAbs {
 				.load(new File("data/OpenNLP/en-pos-maxent.bin"));
 		POSTaggerME tagger = new POSTaggerME(model);
 	 
-		
-		ObjectStream<String> lineStream = new PlainTextByLineStream(
-				new StringReader(texto));
-	 
-		String line;
-		String whitespaceTokenizerLine[] = null;
-	 
-		String[] tags = null;
-		try {
-			while ((line = lineStream.read()) != null) {
-				whitespaceTokenizerLine = WhitespaceTokenizer.INSTANCE
-						.tokenize(line);
-				tags = tagger.tag(whitespaceTokenizerLine);
-			}
-		} catch (IOException e1) {
-			e1.printStackTrace();
-		}
-	 
-		// chunker
 		InputStream is = null;
 		try {
 			is = new FileInputStream("data/OpenNLP/en-chunker.bin");
@@ -124,17 +102,22 @@ public class OpenNLP extends HerramientaAbs {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
+		
+		Tokenizer tokenizer = SimpleTokenizer.INSTANCE;
+		
+		String tokens[] = tokenizer.tokenize(texto);
 	 
+		String[] tags = tagger.tag (tokens);
 		
 		ChunkerME chunkerME = new ChunkerME(cModel);
-		String result[] = chunkerME.chunk(whitespaceTokenizerLine, tags);
+		String result[] = chunkerME.chunk(tokens, tags);
 	 
 		String string ="";
 		for (int i=0; i < result.length; i++)
 		
-			string = string +  whitespaceTokenizerLine[i] + ":  "+ result[i] +"\n";
+			string = string +  tokens[i] + ":  "+ result[i] +"\n";
 	  
-		Span[] span = chunkerME.chunkAsSpans(whitespaceTokenizerLine, tags);
+		Span[] span = chunkerME.chunkAsSpans(tokens, tags);
 		string = string + "\n";
 		string = string + "\n";
 		for (Span s : span)
@@ -161,15 +144,36 @@ public class OpenNLP extends HerramientaAbs {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
+		
+		InputStream isS = null;
+		try {
+			isS = new FileInputStream("data/OpenNLP/en-sent.bin");
+		} catch (FileNotFoundException e1) {
+			e1.printStackTrace();
+		}
+		SentenceModel modelS = null;
+		try {
+			modelS = new SentenceModel(isS);
+		} catch (InvalidFormatException e1) {
+			e1.printStackTrace();
+		} catch (IOException e1) {
+			e1.printStackTrace();
+		}
+		SentenceDetectorME sdetector = new SentenceDetectorME(modelS);
+	 
+		String sentences[] = sdetector.sentDetect(texto);
 	 
 		Parser parser = ParserFactory.create(model);
-	 
-		Parse topParses[] = ParserTool.parseLine(texto, parser, 1);
-		
+		Parse topParses[] = null;
 		StringBuffer sb = new StringBuffer();
+		for (String s : sentences){
+			topParses = ParserTool.parseLine(s, parser, 1);
 		for (Parse p : topParses){
 			p.show(sb);
+			sb.append("\n");
+			}
 		}
+		
 		try {
 			is.close();
 		} catch (IOException e) {
@@ -177,7 +181,7 @@ public class OpenNLP extends HerramientaAbs {
 		}
 		
 		return sb.toString();
-	}
+		}
 
 	
 	@Override
@@ -304,13 +308,13 @@ public class OpenNLP extends HerramientaAbs {
 
 	public String coreference (String texto){
 		
-		Linker linker = null;
-		
+		Linker treebankLinker = null;
 		try {
-			 linker = new DefaultLinker("data/OpenNLP",
+			treebankLinker = new TreebankLinker("data/OpenNLP",
 					LinkerMode.TEST);
-		} catch (IOException e2) {
-			e2.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
 		
 		InputStream is = null;
@@ -329,21 +333,7 @@ public class OpenNLP extends HerramientaAbs {
 		}
 		SentenceDetectorME sdetector = new SentenceDetectorME(model);
 		String sentences[] = sdetector.sentDetect(texto);
-		InputStream isT = null;
-		try {
-			isT = new FileInputStream("data/OpenNLP/en-token.bin");
-		} catch (FileNotFoundException e) {
-			e.printStackTrace();
-		}
-		TokenizerModel modelT = null;
-		try {
-			modelT = new TokenizerModel(isT);
-		} catch (InvalidFormatException e) {
-			e.printStackTrace();
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-		Tokenizer tokenizer = new TokenizerME(modelT);
+		
 		InputStream isP = null;
 		try {
 			isP = new FileInputStream("data/OpenNLP/en-parser-chunking.bin");
@@ -362,56 +352,67 @@ public class OpenNLP extends HerramientaAbs {
 	 
 		Parser parser = ParserFactory.create(modelP);
 		
-		   final List<Mention> document = new ArrayList<Mention>();
+		InputStream isN = null;
+		try {
+			isN = new FileInputStream("data/OpenNLP/en-ner-person.bin");
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		}
 		 
-		   for (int i=0; i < sentences.length; i++) {
-			   Parse p = new Parse(sentences[i],
-				         new Span(0, sentences[i].length()),
-				         AbstractBottomUpParser.INC_NODE,
-				         1, 0);
-			   Span[] spans = tokenizer.tokenizePos(sentences [i]);
-				for (int idx=0; idx < spans.length; idx++) {
-				      final Span span = spans[idx]; 
-				      p.insert(new Parse(sentences [i],
-				            span,
-				            AbstractBottomUpParser.TOK_NODE, 
-				            0,
-				            idx));
-				   }
-				
-				Parse parse = parser.parse(p);
-		       Mention[] extents = linker.getMentionFinder().getMentions(new
-		    		   DefaultParse(parse,i));
-		       
-		       /*for (int ei=0,en=extents.length;ei<en;ei++) {
-		    	   if (extents[ei].getParse() == null) {
-		    	   Parse snp = new Parse(parse.getText(),extents[ei].getSpan(),"NML",1.0,0);
-		    	   parse.insert(snp);
-		    	   extents[ei].setParse(new DefaultParse(snp, i));
-		    	   }
-		    	   } */
-		    	   document.addAll(Arrays.asList(extents));
-		   }
-		   
-		   String string="";
-		   /*for (Mention m :document)
-			   string = string + m.toString() + "\n";*/
-		   
-		   if (!document.isEmpty()) { 
-			  DiscourseEntity [] de = linker.getEntities(document.toArray(new Mention[0]));
-		      for (DiscourseEntity d : de){
-		    	  string = string + d.toString() + "\n";
-		    	  			
-		   }
-		   }
+		TokenNameFinderModel modelN = null;
+		try {
+			modelN = new TokenNameFinderModel(isN);
+		} catch (InvalidFormatException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		try {
+			isN.close();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		NameFinderME nameFinder = new NameFinderME(modelN);
+		Tokenizer tokenizer = SimpleTokenizer.INSTANCE;
+		final List<Mention> document = new ArrayList<Mention>();
+		 for (int i=0; i < sentences.length; i++) {
+			 Parse topParses[] = ParserTool.parseLine(sentences [i], parser, 1);
+			 Span[] tokenSpans = tokenizer.tokenizePos(sentences[i]);
+		     String[] tokens = Span.spansToStrings(tokenSpans, sentences[i]);
+		     Span[] names = nameFinder.find(tokens);
+		     Parse.addNames("person", names, topParses);
+		     for (Parse p : topParses){
+		    	 Mention[] extents = treebankLinker.getMentionFinder().getMentions(new
+		    		 DefaultParse(p,i));
+		     
+		    	 for (int ei=0,en=extents.length;ei<en;ei++) {
+		    		 if (extents[ei].getParse() == null) {
+		    		 Parse snp = new Parse(p.getText(),extents[ei].getSpan(),"NML",1.0,0);
+		    		 p.insert(snp);
+		    		 extents[ei].setParse(new DefaultParse(snp, i));
+		    		 }
+		    		 }
+		    	 document.addAll(Arrays.asList(extents));
+		     } 
+		 }
 		
-		return string;
+		
+		 String string="";
+		   if (!document.isEmpty()) { 
+			  DiscourseEntity [] de = treebankLinker.getEntities(document.toArray(new Mention[document.size()]));
+		      for (DiscourseEntity d : de){
+		    	  string = string + d.toString() + "\n";	  			
+		   }
+		 }
+		return string;		
 	}
 
 	@Override
 	public String sentiment_analysis(String texto) {
 		return "LA HERRAMIENTA NO SOPORTA LA ACCION";
 	}
+
+
 
 	@Override
 	public double promedio_sentiment_analysis(ArrayList<String> resultados) {

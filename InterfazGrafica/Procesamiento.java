@@ -47,7 +47,7 @@ public class Procesamiento extends javax.swing.JFrame {
 
          optMetodos.setEditable(true);
          optMetodos.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-         optMetodos.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Seleccionar metodo", "Tokenize", "Chunk", "Analisis gramatical", "Identificar lenguaje", "Reconocer nombre entidades", "Etiquetado gramatical", "Detectar sentencias", "Analisis sentimental", "Coreferencia" }));
+         optMetodos.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Seleccionar metodo", "Tokenize", "Chunk", "Analisis gramatical", "Identificar lenguaje", "Reconocer nombre entidades", "Etiquetado gramatical", "Detectar sentencias", "Analisis sentimental", "Correferencia" }));
          optMetodos.addItemListener(new java.awt.event.ItemListener() {
              public void itemStateChanged(java.awt.event.ItemEvent evt) {
                  optMetodosItemStateChanged(evt);
@@ -72,6 +72,8 @@ public class Procesamiento extends javax.swing.JFrame {
 
          TextIn.setColumns(20);
          TextIn.setRows(5);
+         TextIn.setLineWrap(true);
+         TextIn.setWrapStyleWord(true);
          TextIn.addKeyListener(new java.awt.event.KeyAdapter() {
              public void keyReleased(java.awt.event.KeyEvent evt) {
                  TextInKeyReleased(evt);
@@ -88,6 +90,8 @@ public class Procesamiento extends javax.swing.JFrame {
          jLabel5.setText("Referencias");
          
          TextOut.setEditable(false);
+         TextOut.setLineWrap(true);
+         TextOut.setWrapStyleWord(true);
          TextOut.setColumns(20);
          TextOut.setRows(5);
          jScrollPane3.setViewportView(TextOut);
@@ -262,7 +266,7 @@ public class Procesamiento extends javax.swing.JFrame {
 				        	TextOut.setText(herramienta.sentiment_analysis(TextIn.getText()));
 				        break;
 				        
-				        case "Coreferencia":
+				        case "Correferencia":
 				        	TextOut.setText(herramienta.coreference(TextIn.getText()));
 				        break;
 			

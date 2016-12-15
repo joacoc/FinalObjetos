@@ -99,12 +99,12 @@ public class NLTK extends HerramientaAbs {
     	
     	System.out.println(correrCodigo(codigo));
     	
-<<<<<<< HEAD
+
     	return "PROXIMAMENTE";
-=======
-    	return "Actualmente no disponible.";
+
+    	//return "Actualmente no disponible.";
 //    	return correrCodigo(codigo).toString();
->>>>>>> d6bac00a03530237aefcd784f81229258ae72615
+
 	}
 
 	@Override
