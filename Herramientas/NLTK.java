@@ -218,7 +218,8 @@ public class NLTK extends HerramientaAbs {
 			s = s.substring(s.indexOf('\n')+1);
 			
 			//Remuevo la palabra"compbound".
-			s = s.substring(9);
+			s = s.substring(9,s.length()-1);
+			
 			StringBuilder s_aux = new StringBuilder();
 			
 			for(int i = 0; i < s.length(); i++){
@@ -230,8 +231,10 @@ public class NLTK extends HerramientaAbs {
 					s_aux.append(String.valueOf(c));
 				}
 			}
+			//Obtengo el valor del compbound limpio
 			aux = Double.valueOf(s_aux.toString());
 		}
+		System.out.println(aux+"Cant:"+cant);
 		return aux/cant;
 	}
 	
