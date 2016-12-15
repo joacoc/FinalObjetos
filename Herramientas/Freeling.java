@@ -125,6 +125,8 @@ public class Freeling extends HerramientaAbs{
 		String len = this.lang_ident(texto);
 		if (!len.equals("es")&& !len.equals("en"))
 			return "EL TEXTO DEBE ESTAR EN ESPAÑOL O INGLES PARA ANALIZARLO";
+		if (len.equals("en"))
+			return "LA FUNCIONALIDAD SOLO ESTA DISPONIBLE EN ESPAÑOL";
 		Tokenizer tk = new Tokenizer("data/Freeling/" + len + "/tokenizer.dat" );
 		Splitter sp = new Splitter( "data/Freeling/"+ len + "/splitter.dat");
 		Maco mf = crearMaco (len);
