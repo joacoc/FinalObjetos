@@ -43,7 +43,16 @@ import opennlp.tools.util.Span;
 
 public class OpenNLP extends HerramientaAbs {
 		
-	public String tokenizar(String texto) {
+	private Tokenizer tokenizer;
+	private ChunkerME chunkerME;
+	private SentenceDetectorME sdetector;
+	private Parser parser;
+	private NameFinderME nameFinder;
+	private POSTaggerME tagger;
+	
+	
+	public OpenNLP (){
+		//-----------TOKENIZER--------------
 		InputStream is = null;
 		try {
 			is = new FileInputStream("data/OpenNLP/en-token.bin");
@@ -51,7 +60,6 @@ public class OpenNLP extends HerramientaAbs {
 			e.printStackTrace();
 		}
 		TokenizerModel model = null;
-		
 		try {
 			model = new TokenizerModel(is);
 		} catch (InvalidFormatException e) {
@@ -59,91 +67,52 @@ public class OpenNLP extends HerramientaAbs {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-	 
-		Tokenizer tokenizer = new TokenizerME(model);
-	 
+		this.tokenizer = new TokenizerME(model);
 		
-		String tokens[] = tokenizer.tokenize(texto);
+		//-----------------CHUNKER-------------------
 		
-	 
-		String string ="";
-		for (String a : tokens)
-			string = string + a + "\n";
-	 
+		InputStream isC = null;
 		try {
-			is.close();
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-		
-		return string;
-		
-	}
-	
-	
-
-	@Override
-	public String chunk(String texto) {
-		POSModel model = new POSModelLoader()
-				.load(new File("data/OpenNLP/en-pos-maxent.bin"));
-		POSTaggerME tagger = new POSTaggerME(model);
-	 
-		InputStream is = null;
-		try {
-			is = new FileInputStream("data/OpenNLP/en-chunker.bin");
+			isC = new FileInputStream("data/OpenNLP/en-chunker.bin");
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
 		}
 		ChunkerModel cModel = null;
 		try {
-			cModel = new ChunkerModel(is);
+			cModel = new ChunkerModel(isC);
 		} catch (InvalidFormatException e) {
 			e.printStackTrace();
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
+		this.chunkerME = new ChunkerME(cModel);
 		
-		Tokenizer tokenizer = SimpleTokenizer.INSTANCE;
+		//-------------POSTAGGER---------------------
+		POSModel modelP = new POSModelLoader()
+				.load(new File("data/OpenNLP/en-pos-maxent.bin"));
+		this.tagger = new POSTaggerME(modelP);
 		
-		String tokens[] = tokenizer.tokenize(texto);
-	 
-		String[] tags = tagger.tag (tokens);
 		
-		ChunkerME chunkerME = new ChunkerME(cModel);
-		String result[] = chunkerME.chunk(tokens, tags);
-	 
-		String string ="";
-		for (int i=0; i < result.length; i++)
-		
-			string = string +  tokens[i] + ":  "+ result[i] +"\n";
-	  
-		Span[] span = chunkerME.chunkAsSpans(tokens, tags);
-		string = string + "\n";
-		string = string + "\n";
-		for (Span s : span)
-			
-			string = string + s.toString() + "\n";
-			
-		return string;
-	}
-
-	@Override
-	public String parse(String texto) {
-		InputStream is = null;
+		//--------------PARSER-----------------------
+		InputStream isPA = null;
 		try {
-			is = new FileInputStream("data/OpenNLP/en-parser-chunking.bin");
+			isPA = new FileInputStream("data/OpenNLP/en-parser-chunking.bin");
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
 		}
 		 
-		ParserModel model = null;
+		ParserModel modelPA = null;
 		try {
-			model = new ParserModel(is);
+			modelPA = new ParserModel(isPA);
 		} catch (InvalidFormatException e) {
 			e.printStackTrace();
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
+		
+		this.parser = ParserFactory.create(modelPA);
+		
+		//----------------SENTENCE DETECTOR------------------------
 		
 		InputStream isS = null;
 		try {
@@ -159,11 +128,64 @@ public class OpenNLP extends HerramientaAbs {
 		} catch (IOException e1) {
 			e1.printStackTrace();
 		}
-		SentenceDetectorME sdetector = new SentenceDetectorME(modelS);
-	 
+		this.sdetector = new SentenceDetectorME(modelS);
+		
+		//--------------NAMEFINDER------------------------
+		
+		InputStream isN = null;
+		try {
+			isN = new FileInputStream("data/OpenNLP/en-ner-person.bin");
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		}
+		 
+		TokenNameFinderModel modelN = null;
+		try {
+			modelN = new TokenNameFinderModel(isN);
+		} catch (InvalidFormatException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		
+		this.nameFinder = new NameFinderME(modelN);
+		
+	}
+	
+	
+ 	public String tokenizar(String texto) {
+		
+		String tokens[] = tokenizer.tokenize(texto);
+		String string ="";
+		for (String a : tokens)
+			string = string + a + "\n";
+		return string;
+		
+	}
+	
+	
+
+	@Override
+	public String chunk(String texto) {
+		
+		String tokens[] = tokenizer.tokenize(texto);
+		String[] tags = tagger.tag (tokens);
+		String result[] = chunkerME.chunk(tokens, tags);
+		String string ="";
+		for (int i=0; i < result.length; i++)
+			string = string +  tokens[i] + ":  "+ result[i] +"\n";
+		Span[] span = chunkerME.chunkAsSpans(tokens, tags);
+		string = string + "\n";
+		string = string + "\n";
+		for (Span s : span)
+			string = string + s.toString() + "\n";
+		return string;
+	}
+
+	@Override
+	public String parse(String texto) {
+		
 		String sentences[] = sdetector.sentDetect(texto);
-	 
-		Parser parser = ParserFactory.create(model);
 		Parse topParses[] = null;
 		StringBuffer sb = new StringBuffer();
 		for (String s : sentences){
@@ -172,14 +194,7 @@ public class OpenNLP extends HerramientaAbs {
 			p.show(sb);
 			sb.append("\n");
 			}
-		}
-		
-		try {
-			is.close();
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-		
+		}		
 		return sb.toString();
 		}
 
@@ -192,43 +207,8 @@ public class OpenNLP extends HerramientaAbs {
 
 	@Override
 	public String name_entity_recognizer (String texto) {
-		InputStream is = null;
-		try {
-			is = new FileInputStream("data/OpenNLP/en-ner-person.bin");
-		} catch (FileNotFoundException e) {
-			e.printStackTrace();
-		}
-		 
-		TokenNameFinderModel model = null;
-		try {
-			model = new TokenNameFinderModel(is);
-		} catch (InvalidFormatException e) {
-			e.printStackTrace();
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-		try {
-			is.close();
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
 		
-		SentenceDetector sentenceDetector = null;
-	    InputStream modelS = null;
-	     
-	    try {
-	       modelS = new FileInputStream ("data/OpenNLP/en-sent.bin");
-	       SentenceModel sentenceModel = new SentenceModel(modelS);
-	       modelS.close();
-	       sentenceDetector = new SentenceDetectorME(sentenceModel);
-	    }
-	    catch (final IOException ioe) {
-	           ioe.printStackTrace();
-	        }
-		
-		NameFinderME nameFinder = new NameFinderME(model);
-		String sentence[] = sentenceDetector.sentDetect(texto);
-		Tokenizer tokenizer = SimpleTokenizer.INSTANCE;
+		String sentence[] = sdetector.sentDetect(texto);
 		String name ="";
 	    for (int si = 0; si < sentence.length; si++) {
 	        Span[] tokenSpans = tokenizer.tokenizePos(sentence[si]);
@@ -248,11 +228,6 @@ public class OpenNLP extends HerramientaAbs {
 
 	@Override
 	public String etiquetado_gramatical(String texto) {
-		
-		POSModel model = new POSModelLoader()	
-				.load(new File("data/OpenNLP/en-pos-maxent.bin"));
-			POSTaggerME tagger = new POSTaggerME(model);
-		 
 			ObjectStream<String> lineStream = new PlainTextByLineStream(
 					new StringReader(texto));
 			String line;
@@ -275,39 +250,16 @@ public class OpenNLP extends HerramientaAbs {
 
 	@Override
 	public String sentence_detect(String texto) {
-		 
 
-		InputStream is = null;
-		try {
-			is = new FileInputStream("data/OpenNLP/en-sent.bin");
-		} catch (FileNotFoundException e1) {
-			e1.printStackTrace();
-		}
-		SentenceModel model = null;
-		try {
-			model = new SentenceModel(is);
-		} catch (InvalidFormatException e1) {
-			e1.printStackTrace();
-		} catch (IOException e1) {
-			e1.printStackTrace();
-		}
-		SentenceDetectorME sdetector = new SentenceDetectorME(model);
-	 
 		String sentences[] = sdetector.sentDetect(texto);
 		String string = ""; 
 		for (String s: sentences)
 			string = string + s + "\n";
-			
-		try {
-			is.close();
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
 		return string;
 	}
 
 	public String coreference (String texto){
-		
+		/*
 		Linker treebankLinker = null;
 		try {
 			treebankLinker = new TreebankLinker("data/OpenNLP",
@@ -379,8 +331,8 @@ public class OpenNLP extends HerramientaAbs {
 			 Parse topParses[] = ParserTool.parseLine(sentences [i], parser, 1);
 			 Span[] tokenSpans = tokenizer.tokenizePos(sentences[i]);
 		     String[] tokens = Span.spansToStrings(tokenSpans, sentences[i]);
-		     Span[] names = nameFinder.find(tokens);
-		     Parse.addNames("person", names, topParses);
+		     //Span[] names = nameFinder.find(tokens);
+		     //Parse.addNames("person", names, topParses);
 		     for (Parse p : topParses){
 		    	 Mention[] extents = treebankLinker.getMentionFinder().getMentions(new
 		    		 DefaultParse(p,i));
@@ -404,7 +356,8 @@ public class OpenNLP extends HerramientaAbs {
 		    	  string = string + d.toString() + "\n";	  			
 		   }
 		 }
-		return string;		
+		return string;*/
+		return "LA HERRAMIENTA NO SOPORTA LA ACCION";
 	}
 
 	@Override

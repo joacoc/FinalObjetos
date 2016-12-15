@@ -229,7 +229,7 @@ public class Procesamiento extends javax.swing.JFrame {
 				        	TextOut.setText(s);
 				        break;
 				        case "Analisis gramatical":
-			        		if (title == "Freeling" && herramienta.lang_ident(TextIn.getText())=="Español"){
+			        		if (title == "Freeling (español)"){
 			        				this.addReferencias("Referencias-parse-es.txt");
 			        		}
 			        		else {
@@ -243,14 +243,14 @@ public class Procesamiento extends javax.swing.JFrame {
 				        break;
 				        
 				        case "Reconocer nombre entidades":
-				        	if (title == "Freeling")
+				        	if (title == "Freeling (español)" || title == "Freeling (inglés)")
 				        		this.addReferencias("ReferenciasNEC.txt");
 				        	TextOut.setText(herramienta.name_entity_recognizer(TextIn.getText()));
 				        break;
 				       
 				        case "Etiquetado gramatical":
 				        		TextOut.setText(herramienta.etiquetado_gramatical(TextIn.getText()));
-				        		if (title == "Freeling" && herramienta.lang_ident(TextIn.getText())=="Español"){
+				        		if (title == "Freeling (español)"){
 				        				this.addReferencias("Referencias-pos-freeling-es.txt");
 				        		}
 				        		else {

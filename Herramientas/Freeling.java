@@ -21,18 +21,54 @@ import edu.upc.freeling.Word;
 
 public class Freeling extends HerramientaAbs{
 	
-	public Freeling (){
+	private Tokenizer tk;
+	private HmmTagger tg;
+	private Splitter sp;
+	private Maco mf;
+	private Nec nec;
+	private ChartParser parser;
+	private Ner ner;
+	private String len;
+	
+	
+	public Freeling (String len){
 		System.loadLibrary("freeling_javaAPI");
+		this.len = len;
+		this.tk = new Tokenizer("data/Freeling/" + len + "/tokenizer.dat" );
+		this.tg = new HmmTagger("data/Freeling/"+ len+ "/tagger.dat", true, 2 );
+		this.sp = new Splitter( "data/Freeling/"+ len + "/splitter.dat");
+		//-------------------------MACO---------------------------------
+		MacoOptions op = new MacoOptions(len);
+		op.setActiveModules(
+				 false, op.getAffixAnalysis(),op.getMultiwordsDetection(), op.getNumbersDetection(), true,
+				 op.getDatesDetection(), op.getQuantitiesDetection(), true, true, op.getNERecognition(), false );
+	    op.setDataFiles(
+	      "", 
+	      "data/Freeling/"+ len+  "/locucions.dat", 
+	      "data/Freeling/"+ len+  "/quantities.dat",
+	      "data/Freeling/"+ len+  "/afixos.dat",
+	      "data/Freeling/"+ len+ "/probabilitats.dat",
+	      "data/Freeling/"+ len+ "/dicc.src",
+	      "data/Freeling/"+ len+ "/np.dat",
+	      "data/Freeling/common/punct.dat");
+	       this.mf = new Maco( op );
+	       
+	       //----------------------------------------------------------
+	       
+	       this.parser = new ChartParser("data/Freeling/" + len +"/chunker/grammar-chunk.dat" );
+	       this.nec = new Nec("data/Freeling/" + len+ "/nerc/nec/nec-ab-rich.dat");
+		   this.ner = new Ner ("data/Freeling/" + len+ "/nerc/ner/ner-ab-rich.dat");
+		
 	}
 	
 
 	
 	@Override
 	public String tokenizar(String texto) {
-		String len = this.lang_ident(texto);
+		/*String len = this.lang_ident(texto);
 		if (!len.equals("es")&& !len.equals("en"))
 			return "EL TEXTO DEBE ESTAR EN ESPAÑOL O INGLES PARA ANALIZARLO";
-		Tokenizer tk = new Tokenizer("data/Freeling/" + len + "/tokenizer.dat" );
+		//Tokenizer tk = new Tokenizer("data/Freeling/" + len + "/tokenizer.dat" );*/
 		ListWord l = tk.tokenize(texto);
 		String string ="";
 		Word w;
@@ -86,20 +122,20 @@ public class Freeling extends HerramientaAbs{
 	@Override
 	public String parse(String texto) {
 		
-		String len = this.lang_ident(texto);
+		/*String len = this.lang_ident(texto);
 		if (!len.equals("es")&& !len.equals("en"))
 			return "EL TEXTO DEBE ESTAR EN ESPAÑOL O INGLES PARA ANALIZARLO";
 		HmmTagger tg = new HmmTagger("data/Freeling/"+ len+ "/tagger.dat", true, 2 );
 		Tokenizer tk = new Tokenizer("data/Freeling/" + len + "/tokenizer.dat" );
 		Splitter sp = new Splitter( "data/Freeling/"+ len + "/splitter.dat");
-		Maco mf = crearMaco (len);
+		Maco mf = crearMaco (len);*/
 		ListWord l = tk.tokenize(texto);
 		ListSentence ls = sp.split(l, false);
 		mf.analyze(ls);
 		tg.analyze(ls);
-		Nec neclass = new Nec("data/Freeling/" + len+ "/nerc/nec/nec-ab-poor1.dat");
-	    ChartParser parser = new ChartParser("data/Freeling/" + len +"/chunker/grammar-chunk.dat" );
-		neclass.analyze(ls);
+		//Nec neclass = new Nec("data/Freeling/" + len+ "/nerc/nec/nec-ab-poor1.dat");
+	    //ChartParser parser = new ChartParser("data/Freeling/" + len +"/chunker/grammar-chunk.dat" );
+		nec.analyze(ls);
 		StringBuilder sb = new StringBuilder();
 		parser.analyze(ls);
 		ListSentenceIterator sIt = new ListSentenceIterator(ls);
@@ -121,7 +157,7 @@ public class Freeling extends HerramientaAbs{
 
 	@Override
 	public String name_entity_recognizer(String texto) {
-		
+		/*
 		String len = this.lang_ident(texto);
 		if (!len.equals("es")&& !len.equals("en"))
 			return "EL TEXTO DEBE ESTAR EN ESPAÑOL O INGLES PARA ANALIZARLO";
@@ -129,12 +165,14 @@ public class Freeling extends HerramientaAbs{
 			return "LA FUNCIONALIDAD SOLO ESTA DISPONIBLE EN ESPAÑOL";
 		Tokenizer tk = new Tokenizer("data/Freeling/" + len + "/tokenizer.dat" );
 		Splitter sp = new Splitter( "data/Freeling/"+ len + "/splitter.dat");
-		Maco mf = crearMaco (len);
+		Maco mf = crearMaco (len);*/
+		if (len.equals("en"))
+			return "LA FUNCIONALIDAD SOLO ESTA DISPONIBLE EN ESPAÑOL";
 		ListWord l = tk.tokenize(texto);
 		ListSentence ls = sp.split(l, false);
 		mf.analyze(ls);
-		Nec nec = new Nec("data/Freeling/" + len+ "/nerc/nec/nec-ab-rich.dat");
-		Ner ner = new Ner ("data/Freeling/" + len+ "/nerc/ner/ner-ab-rich.dat");
+		//Nec nec = new Nec("data/Freeling/" + len+ "/nerc/nec/nec-ab-rich.dat");
+		//Ner ner = new Ner ("data/Freeling/" + len+ "/nerc/ner/ner-ab-rich.dat");
 		ner.analyze(ls);
 		nec.analyze(ls);
 		String string ="";
@@ -156,13 +194,13 @@ public class Freeling extends HerramientaAbs{
 	@Override
 	public String etiquetado_gramatical(String texto) {
 		
-		String len = this.lang_ident(texto);
+		/*String len = this.lang_ident(texto);
 		if (!len.equals("es")&& !len.equals("en"))
 			return "EL TEXTO DEBE ESTAR EN ESPAÑOL O INGLES PARA ANALIZARLO";
 		HmmTagger tg = new HmmTagger("data/Freeling/"+ len+ "/tagger.dat", true, 2 );
 		Tokenizer tk = new Tokenizer("data/Freeling/" + len + "/tokenizer.dat" );
 		Splitter sp = new Splitter( "data/Freeling/"+ len + "/splitter.dat");
-		Maco mf = crearMaco (len);
+		Maco mf = crearMaco (len);*/
 		ListWord l = tk.tokenize(texto);
 		ListSentence ls = sp.split(l, false);
 		mf.analyze(ls);
@@ -184,13 +222,13 @@ public class Freeling extends HerramientaAbs{
 
 	@Override
 	public String sentence_detect(String texto) {
-		
+		/*
 		String len = this.lang_ident(texto);
 		if (!len.equals("es") && !len.equals("en"))
 			return "EL TEXTO DEBE ESTAR EN ESPAÑOL O INGLES PARA ANALIZARLO";
 		Tokenizer tk = new Tokenizer("data/Freeling/" + len + "/tokenizer.dat" );
 		Splitter sp = new Splitter( "data/Freeling/"+ len + "/splitter.dat");
-		
+		*/
 		ListWord l = tk.tokenize(texto);
 		ListSentence ls = sp.split(l, false);
 		String string = "";
@@ -221,7 +259,7 @@ public class Freeling extends HerramientaAbs{
 
 
 	
-	private Maco crearMaco (String len){
+	/*private Maco crearMaco (String len){
 		MacoOptions op = new MacoOptions(len);
 		op.setActiveModules(
 				 false, op.getAffixAnalysis(),op.getMultiwordsDetection(), op.getNumbersDetection(), true,
@@ -241,7 +279,7 @@ public class Freeling extends HerramientaAbs{
 	}
 	
 	
-	
+	*/
 
 	
 	public double promedio_sentiment_analysis(ArrayList<String> resultados) {
