@@ -7,6 +7,8 @@ import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Properties;
 
+import edu.stanford.nlp.coref.CorefCoreAnnotations;
+import edu.stanford.nlp.coref.data.CorefChain;
 import edu.stanford.nlp.ie.crf.CRFClassifier;
 import edu.stanford.nlp.ling.CoreAnnotations;
 import edu.stanford.nlp.ling.CoreAnnotations.SentencesAnnotation;
@@ -118,7 +120,7 @@ public class StCoreNLP extends HerramientaAbs {
 		List<CoreMap> sentences = document.get(SentencesAnnotation.class);
 		String string ="";
 		for(CoreMap sentence: sentences) 
-			string = string + sentence.get(TextAnnotation.class);
+			string = string + sentence.get(TextAnnotation.class)+ "\n";
 		
 		    
 		return string;
@@ -153,18 +155,15 @@ public class StCoreNLP extends HerramientaAbs {
 	    pipeline.annotate(document);
 	    String string="";
 	    
-	    //TODO: A que libreria pertenece? 
-	    /*
 	    for (CorefChain cc : document.get(CorefCoreAnnotations.CorefChainAnnotation.class).values()) {
 	    	string = string + cc + "\n";
 	    }
-	    */
+	    
 	    
 	    return string;
 	  }
 
 
-	@Override
 	public double promedio_sentiment_analysis(ArrayList<String> resultados) {
 		double aux = 0;
 		double cant = resultados.size();

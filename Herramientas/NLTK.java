@@ -107,6 +107,8 @@ public class NLTK extends HerramientaAbs {
     	System.out.println(correrCodigo(codigo));
     	
     	return "Actualmente no disponible.";
+
+    	//return "Actualmente no disponible.";
 //    	return correrCodigo(codigo).toString();
 	}
 
