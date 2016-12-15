@@ -47,7 +47,6 @@ public class StCoreNLP extends HerramientaAbs {
 		
 	}
 
-
 	
 	public String parse(String texto) {
 		LexicalizedParser lp = LexicalizedParser.loadModel("edu/stanford/nlp/models/lexparser/englishPCFG.ser.gz");
@@ -57,8 +56,6 @@ public class StCoreNLP extends HerramientaAbs {
 		return parse.pennString();
 	      
 	}
-
-
 
 	public String lang_ident(String texto) {
 		return "LA HERRAMIENTA NO SOPORTA LA ACCION";		

@@ -40,14 +40,15 @@ public class main {
 		
 		//----------------OpenNLP------------------------------
 
-		System.out.println("OPENNLP: ");
+
+//		System.out.println("OPENNLP: ");
 		
 		
-		OpenNLP open = new OpenNLP ();
+//		OpenNLP open = new OpenNLP ();
 		
-		System.out.println("PARSE: ");
-		System.out.println();
-		open.parse("The Apache OpenNLP library is a machine learning based toolkit for the processing of natural language text. It supports the most common NLP tasks, such as tokenization, sentence segmentation, part-of-speech tagging, named entity extraction, chunking, parsing, and coreference resolution. These tasks are usually required to build more advanced text processing services. OpenNLP also includes maximum entropy and perceptron based machine learning.");
+//		System.out.println("PARSE: ");
+//		System.out.println();
+//		open.parse("The Apache OpenNLP library is a machine learning based toolkit for the processing of natural language text. It supports the most common NLP tasks, such as tokenization, sentence segmentation, part-of-speech tagging, named entity extraction, chunking, parsing, and coreference resolution. These tasks are usually required to build more advanced text processing services. OpenNLP also includes maximum entropy and perceptron based machine learning.");
 		/*System.out.println();
 		System.out.println("ETIQUETADO GRAMATICAL: ");
 		System.out.println();
@@ -72,14 +73,7 @@ public class main {
 		System.out.println("SENTENCE DETECT ");
 		System.out.println(open.sentence_detect(s));*/
 		
-		
-		//System.out.println("Coreference:    " + open.coreference("The Apache OpenNLP library is a machine learning based toolkit for the processing of natural language text. It supports the most common NLP tasks, such as tokenization, sentence segmentation, part-of-speech tagging, named entity extraction, chunking, parsing, and coreference resolution. These tasks are usually required to build more advanced text processing services. OpenNLP also includes maximum entropy and perceptron based machine learning."));
-		
-		
-		
-		//System.out.println();
-	
-		
+
 		
 		//------------------StanfordCoreNLP---------------------
 /*		
