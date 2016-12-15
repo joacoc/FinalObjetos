@@ -23,10 +23,10 @@ public class main {
 		
 		//----------------OpenNLP------------------------------
 		
-		System.out.println("OPENNLP: ");
+//		System.out.println("OPENNLP: ");
 		
 		
-		OpenNLP open = new OpenNLP ();
+//		OpenNLP open = new OpenNLP ();
 		
 		/*System.out.println();
 		System.out.println("ETIQUETADO GRAMATICAL: ");
@@ -53,12 +53,7 @@ public class main {
 		System.out.println(open.sentence_detect(s));*/
 		
 		
-		System.out.println(open.coreference("John is strong. He's play rugby."));
-		
-		
-		
-		System.out.println();
-	
+//		System.out.println(open.coreference("John is strong. He's play rugby."));
 		
 		
 		//------------------StanfordCoreNLP---------------------

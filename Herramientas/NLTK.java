@@ -48,6 +48,10 @@ public class NLTK extends HerramientaAbs {
 	@Override
 	public String tokenizar(String texto) {
 		
+		//Remuevo todos los saltos de linea
+		//Sino cuando se ejecuta en python se corre el codigo y el interprete no lo detecta.
+		texto = texto.replace("\n", "").replace("\r", "");
+    	
     	String codigo = "import nltk\n"
 				+"from nltk.tokenize import word_tokenize\n"
 				+"tokens = word_tokenize( \" " +texto +" \" ) \n"
@@ -59,6 +63,8 @@ public class NLTK extends HerramientaAbs {
 	@Override
 	public String chunk(String texto) {
 		
+		texto = texto.replace("\n", "").replace("\r", "");
+    	
     	String codigo = "import nltk\n"
 				+"from nltk.tokenize import word_tokenize\n"
 				+"tokens = word_tokenize( \" " +texto+" \" ) \n"
@@ -82,7 +88,8 @@ public class NLTK extends HerramientaAbs {
 		// 		Metodos: nltk.CFG.fromstring(""") o nltk.data.load('file:mygrammar.cfg')
 		// 		http://www.nltk.org/book/ch08.html
 		//		Hay algunas disponibles por nltk. 
-		
+		texto = texto.replace("\n", "").replace("\r", "");
+    	
     	String codigo = "import nltk\n"
     			+"from nltk.tokenize import word_tokenize\n"
 				+"from nltk.parse import RecursiveDescentParser\n"
@@ -99,12 +106,8 @@ public class NLTK extends HerramientaAbs {
     	
     	System.out.println(correrCodigo(codigo));
     	
-<<<<<<< HEAD
-    	return "PROXIMAMENTE";
-=======
     	return "Actualmente no disponible.";
 //    	return correrCodigo(codigo).toString();
->>>>>>> d6bac00a03530237aefcd784f81229258ae72615
 	}
 
 	@Override
@@ -112,7 +115,8 @@ public class NLTK extends HerramientaAbs {
 		
 		//Link:
 		//http://blog.alejandronolla.com/2013/05/15/detecting-text-language-with-python-and-nltk/
-	
+		texto = texto.replace("\n", "").replace("\r", "");
+    	
     	String codigo = "import nltk\n"
     			+"from nltk.tokenize import word_tokenize \n"
 				+"from nltk.corpus import stopwords \n"
@@ -140,6 +144,7 @@ public class NLTK extends HerramientaAbs {
 	public String etiquetado_gramatical(String texto) {
 		//Primero se tokeniza 
 		// y despues se obtiene los tag de cada token.
+		texto = texto.replace("\n", "").replace("\r", "");
 		
     	String codigo = "import nltk\n"
     			+"from nltk.tokenize import word_tokenize\n"
@@ -152,7 +157,8 @@ public class NLTK extends HerramientaAbs {
 
 	@Override
 	public String sentence_detect(String texto) {
-
+		texto = texto.replace("\n", "").replace("\r", "");
+    	
     	String codigo = "import nltk\n"
     			+"sent_tokenizer = nltk.tokenize.PunktSentenceTokenizer()\n"	
 				+"sent_tokenizer = sent_tokenizer.tokenize( \" " +texto +" \" )\n"
@@ -176,6 +182,8 @@ public class NLTK extends HerramientaAbs {
 //		StringBuilder traduccion = correrCodigo(codigo_traduccion);
 		
 //		if(traduccion.toString().length()>0){
+		texto = texto.replace("\n", "").replace("\r", "");
+    	
 		if(texto.length()>0){
 			String codigo = "import nltk\n"
 					+"from nltk.sentiment.vader import SentimentIntensityAnalyzer\n"

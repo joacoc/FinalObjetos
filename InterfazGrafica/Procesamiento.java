@@ -98,9 +98,9 @@ public class Procesamiento extends javax.swing.JFrame {
          jLabel2.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
          jLabel2.setText("Resultado");
          
-         jLabel3.setIcon(new javax.swing.ImageIcon(getClass().getResource(Procesamiento.path)));
+//         jLabel3.setIcon(new javax.swing.ImageIcon(getClass().getResource(Procesamiento.path)));
 
-         jLabel4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/data/HPLN_300.png"))); // NOI18N
+//         jLabel4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/data/HPLN_300.png"))); // NOI18N
          
          
          backButton.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
