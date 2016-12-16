@@ -137,9 +137,9 @@ public class InterfazChatBot extends javax.swing.JFrame {
         output_TA.setRows(5);
         output_TA.setEditable(false);
         output_TA.setLineWrap(true);
-        output_TA.setWrapStyleWord(true);
+        output_TA.setWrapStyleWord(true);	
         jScrollPane2.setViewportView(output_TA);
-
+        
         jLabel2.setText("Output");
 
         comando_textfield.setText("Comando");

@@ -14,7 +14,7 @@ public class main {
 	public static void main(String[] args) throws IOException {
 		// TODO Auto-generated method stub
 		//System.setProperty("java.library.path", "C:/Users/franc/Dropbox/Workspace/TPFinalObjetos");
-
+/*
 		String z = "Proclaiming that “the main, most dangerous part of the war is already in the past,” President Petro O. Poroshenko of Ukraine said on Thursday that his office was in constant communication with President Vladimir V. Putin of Russia to sustain a truce in eastern Ukraine, and that Ukraine was now looking ahead to pursue membership in the European Union.";
 
 
@@ -70,11 +70,7 @@ public class main {
 		System.out.println("SENTENCE DETECT ");
 		System.out.println(open.sentence_detect(s));*/
 		
-		
-//		System.out.println("Coreference:    " + open.coreference("The Apache OpenNLP library is a machine learning based toolkit for the processing of natural language text. It supports the most common NLP tasks, such as tokenization, sentence segmentation, part-of-speech tagging, named entity extraction, chunking, parsing, and coreference resolution. These tasks are usually required to build more advanced text processing services. OpenNLP also includes maximum entropy and perceptron based machine learning."));
-		
-		
-		
+
 		
 		//------------------StanfordCoreNLP---------------------
 /*		
