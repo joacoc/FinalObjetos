@@ -102,9 +102,9 @@ public class Procesamiento extends javax.swing.JFrame {
          jLabel2.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
          jLabel2.setText("Resultado");
          
-//         jLabel3.setIcon(new javax.swing.ImageIcon(getClass().getResource(Procesamiento.path)));
+         jLabel3.setIcon(new javax.swing.ImageIcon(getClass().getResource(Procesamiento.path)));
 
-//         jLabel4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/data/HPLN_300.png"))); // NOI18N
+         jLabel4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/data/HPLN_300.png"))); // NOI18N
          
          
          backButton.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
@@ -188,7 +188,7 @@ public class Procesamiento extends javax.swing.JFrame {
 
     
     private void optMetodosItemStateChanged(java.awt.event.ItemEvent evt) {                                            
-        if (optMetodos.getSelectedItem().toString() == "Seleccionar metodo" || TextIn.getText().isEmpty())
+        if (optMetodos.getSelectedItem().toString().equals("Seleccionar metodo")  || TextIn.getText().isEmpty())
         	aplicar.setEnabled(false);
         else
         	aplicar.setEnabled(true);
@@ -215,7 +215,7 @@ public class Procesamiento extends javax.swing.JFrame {
     
     private void aplicarActionPerformed(java.awt.event.ActionEvent evt) throws IOException{                                        
 		Referencias.setText("");
-    	if (optMetodos.getSelectedItem().toString() != "Seleccionar metodo" || !TextIn.getText().isEmpty()){
+    	if (!optMetodos.getSelectedItem().toString().equals("Seleccionar metodo") || !TextIn.getText().isEmpty()){
     	
     			switch (optMetodos.getSelectedItem().toString()) {
 				    	 
@@ -224,12 +224,12 @@ public class Procesamiento extends javax.swing.JFrame {
 				        break;
 				        case "Chunk":
 				        	String s =herramienta.chunk(TextIn.getText());
-				        	if (s!="LA HERRAMIENTA NO SOPORTA LA ACCION")
+				        	if (!s.equals("LA HERRAMIENTA NO SOPORTA LA ACCION"))
 				        		this.addReferencias("ReferenciasChunk.txt");
 				        	TextOut.setText(s);
 				        break;
 				        case "Analisis gramatical":
-			        		if (title == "Freeling (español)"){
+			        		if (title.equals("Freeling (español)")){
 			        				this.addReferencias("Referencias-parse-es.txt");
 			        		}
 			        		else {
@@ -243,14 +243,14 @@ public class Procesamiento extends javax.swing.JFrame {
 				        break;
 				        
 				        case "Reconocer nombre entidades":
-				        	if (title == "Freeling (español)" || title == "Freeling (inglés)")
+				        	if (title.equals("Freeling (español)") || title.equals("Freeling (inglés)"))
 				        		this.addReferencias("ReferenciasNEC.txt");
 				        	TextOut.setText(herramienta.name_entity_recognizer(TextIn.getText()));
 				        break;
 				       
 				        case "Etiquetado gramatical":
 				        		TextOut.setText(herramienta.etiquetado_gramatical(TextIn.getText()));
-				        		if (title == "Freeling (español)"){
+				        		if (title.equals("Freeling (español)")){
 				        				this.addReferencias("Referencias-pos-freeling-es.txt");
 				        		}
 				        		else {
@@ -278,7 +278,7 @@ public class Procesamiento extends javax.swing.JFrame {
 
 
     private void TextInKeyReleased(java.awt.event.KeyEvent evt) {                                   
-        if(TextIn.getText().isEmpty() || optMetodos.getSelectedItem().toString() == "Seleccionar metodo") 
+        if(TextIn.getText().isEmpty() || optMetodos.getSelectedItem().toString().equals("Seleccionar metodo")) 
             aplicar.setEnabled(false); 
         else 
             aplicar.setEnabled(true);

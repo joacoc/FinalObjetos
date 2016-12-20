@@ -3,14 +3,8 @@ package Herramientas;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.FileWriter;
-import java.io.IOException;
 import java.io.InputStreamReader;
-import java.io.OutputStream;
 import java.util.ArrayList;
-
-import javax.script.ScriptEngine;
-import javax.script.ScriptEngineManager;
-import javax.script.ScriptException;
 
 public class NLTK extends HerramientaAbs {
 
@@ -62,21 +56,8 @@ public class NLTK extends HerramientaAbs {
 
 	@Override
 	public String chunk(String texto) {
-		
-		texto = texto.replace("\n", "").replace("\r", "");
-    	
-    	String codigo = "import nltk\n"
-				+"from nltk.tokenize import word_tokenize\n"
-				+"tokens = word_tokenize( \" " +texto+" \" ) \n"
-    			+"grammar = r\"\"\" \n"
-    			+"NP: \n"
-    			+"\t{<.*>+} \n"
-    			+"\t\"\"\" \n"
-    			+"cp = nltk.RegexpParser(grammar)\n"
-    			+"tagged_tokens = nltk.pos_tag(tokens)\n"
-    			+"print (cp.parse(tagged_tokens))";
-    	
-    	return correrCodigo(codigo).toString();
+		   	
+    	return "LA HERRAMIENTA NO SOPORTA LA ACCION";
 	}
 
 	@Override
@@ -91,25 +72,17 @@ public class NLTK extends HerramientaAbs {
 		texto = texto.replace("\n", "").replace("\r", "");
     	
     	String codigo = "import nltk\n"
-    			+"from nltk.tokenize import word_tokenize\n"
-				+"from nltk.parse import RecursiveDescentParser\n"
-				+"tokens = word_tokenize( \" " +texto +" \" ) \n"
-				+"sentence = "+"\"" +texto +"\".split() \n" 
+				+"from nltk.tokenize import word_tokenize\n"
+				+"tokens = word_tokenize( \" " +texto+" \" ) \n"
     			+"grammar = r\"\"\" \n"
     			+"NP: \n"
     			+"\t{<.*>+} \n"
     			+"\t\"\"\" \n"
     			+"cp = nltk.RegexpParser(grammar)\n"
-				+"rd = RecursiveDescentParser(grammar)\n"
-    			+"for t in rd.parse(sentence)\n"
-				+"\t print(t)\n";
+    			+"tagged_tokens = nltk.pos_tag(tokens)\n"
+    			+"print (cp.parse(tagged_tokens))";
     	
-    	System.out.println(correrCodigo(codigo));
-    	
-    	return "Actualmente no disponible.";
-
-    	//return "Actualmente no disponible.";
-//    	return correrCodigo(codigo).toString();
+    	return correrCodigo(codigo).toString();
 	}
 
 	@Override
@@ -170,27 +143,13 @@ public class NLTK extends HerramientaAbs {
 	}
 	
 	public String sentiment_analysis(String texto){
-		//	Obtiene el positivismo de cada una de las sentencias dentro de un texto
-		//	http://www.nltk.org/howto/sentiment.html
-		//	es necesario bajarse el VaderLexicon desde nltk.download()
-		
-		//TODO:
-		//	Primero hay que chequear el idioma del texto, si esta en espanol hay que traducirlo al ingles
-		
-//		String codigo_traduccion = "import goslate\n"
-//							+"gs = goslate.Goslate()\n"
-//							+"print(gs.translate('"+texto+"','en'))";
-		
-//		StringBuilder traduccion = correrCodigo(codigo_traduccion);
-		
-//		if(traduccion.toString().length()>0){
+	
 		texto = texto.replace("\n", "").replace("\r", "");
     	
 		if(texto.length()>0){
 			String codigo = "import nltk\n"
 					+"from nltk.sentiment.vader import SentimentIntensityAnalyzer\n"
 					+"from nltk import tokenize\n"
-//					+"sentences = tokenize.sent_tokenize( \" " +traduccion.toString() +" \" ) \n"
 					+"sentences = tokenize.sent_tokenize( \" " +texto +" \" ) \n"
 					+"sid = SentimentIntensityAnalyzer()\n"
 					+"for sentence in sentences:\n"

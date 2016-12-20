@@ -6,7 +6,7 @@ public abstract class HerramientaAbs implements Union, Interseccion  {
 
 	
 	public abstract String tokenizar(String texto);
-
+	
 
 	public abstract String chunk(String texto);
 

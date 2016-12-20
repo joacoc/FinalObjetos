@@ -1,8 +1,5 @@
 package Herramientas;
 
-
-
-
 public interface Union{
 	
 	public String tokenizar(String texto);

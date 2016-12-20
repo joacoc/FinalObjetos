@@ -30,7 +30,6 @@ public class ChatBot extends Thread {
 		//Se corre en un thread aparte sino la GUI nunca se actualiza.
 		Process p;
 		try {
-//			p = Runtime.getRuntime().exec("python");
 			p = Runtime.getRuntime().exec("python .\\hangoutsbot-master\\hangupsbot\\hangupsbot.py");
 	    	in = new BufferedReader(new InputStreamReader(p.getInputStream()));
 	    	out = new BufferedWriter(new OutputStreamWriter(p.getOutputStream()));
@@ -42,7 +41,6 @@ public class ChatBot extends Thread {
 	    		stringBuilder.append(linea);
 	    		if(linea.contains("bot initialised")){
 	    			inicializo = true;
-	    			System.out.println("Bot inicializado");
 	    		}
 	    		
 	    		if(linea.contains("Sign in with your Google account")){
@@ -62,13 +60,12 @@ public class ChatBot extends Thread {
 	}
 	
 	public void eliminarConfig() throws IOException{
-		System.out.println(appData_Dir);
+		
 		File f = new File(appData_Dir +"\\cookies.json");
 		f.delete();
 	}
 	
 	public void escribirConsola(String texto) throws IOException{
-		System.out.println(texto);
 		out.flush();
 		out.write(texto+"/r/n");
 	}

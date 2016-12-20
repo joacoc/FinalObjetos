@@ -43,7 +43,7 @@ public class InterfazUsuario extends javax.swing.JFrame {
          setMaximumSize(new java.awt.Dimension(629, 386));
          setResizable(false);
 
-//         openNLPButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/data/onlplogo.png"))); // NOI18N
+         openNLPButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/data/onlplogo.png"))); // NOI18N
          openNLPButton.setMaximumSize(new java.awt.Dimension(300, 75));
          openNLPButton.setMinimumSize(new java.awt.Dimension(100, 50));
          openNLPButton.setPreferredSize(new java.awt.Dimension(200, 50));
@@ -53,7 +53,7 @@ public class InterfazUsuario extends javax.swing.JFrame {
              }
          });
 
-//         stanfordButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/data/logost.png"))); // NOI18N
+         stanfordButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/data/logost.png"))); // NOI18N
          stanfordButton.setActionCommand("freeling");
          stanfordButton.setPreferredSize(new java.awt.Dimension(354, 50));
          stanfordButton.addActionListener(new java.awt.event.ActionListener() {
@@ -62,7 +62,7 @@ public class InterfazUsuario extends javax.swing.JFrame {
              }
          });
 
-//         NLTKbutton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/data/nltklogo.png"))); // NOI18N
+         NLTKbutton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/data/nltklogo.png"))); // NOI18N
          NLTKbutton.setText("NTLK");
          NLTKbutton.setMaximumSize(new java.awt.Dimension(300, 60));
          NLTKbutton.setPreferredSize(new java.awt.Dimension(220, 50));
@@ -77,9 +77,11 @@ public class InterfazUsuario extends javax.swing.JFrame {
          jLabel1.setMaximumSize(new java.awt.Dimension(200, 50));
          jLabel1.setPreferredSize(new java.awt.Dimension(200, 50));
 
-//         jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/data/HPLN_500.png"))); // NOI18N
+         jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/data/HPLN_500.png"))); // NOI18N
          
-//         freelingButtonEs.setIcon(new javax.swing.ImageIcon(getClass().getResource("/data/freelinglogo.png"))); // NOI18N
+       
+      
+         freelingButtonEs.setIcon(new javax.swing.ImageIcon(getClass().getResource("/data/freelinglogo.png"))); // NOI18N
          freelingButtonEs.setPreferredSize(new java.awt.Dimension(200, 50));
          freelingButtonEs.addActionListener(new java.awt.event.ActionListener() {
              public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -87,7 +89,7 @@ public class InterfazUsuario extends javax.swing.JFrame {
              }
          });
          
-//         freelingButtonEn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/data/freelinglogo.png"))); // NOI18N
+         freelingButtonEn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/data/freelinglogo.png"))); // NOI18N
          freelingButtonEn.setPreferredSize(new java.awt.Dimension(200, 50));
          freelingButtonEn.addActionListener(new java.awt.event.ActionListener() {
              public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -110,15 +112,15 @@ public class InterfazUsuario extends javax.swing.JFrame {
          
 
          labelSt.setPreferredSize(new java.awt.Dimension(45, 30));
-//         labelSt.setIcon(new javax.swing.ImageIcon(getClass().getResource("/data/ingles.png")));
+         labelSt.setIcon(new javax.swing.ImageIcon(getClass().getResource("/data/ingles.png")));
          
          labelNLTK.setPreferredSize(new java.awt.Dimension(45, 30));
-//         labelNLTK.setIcon(new javax.swing.ImageIcon(getClass().getResource("/data/ingles.png")));
+         labelNLTK.setIcon(new javax.swing.ImageIcon(getClass().getResource("/data/ingles.png")));
          
-//         labelOP.setIcon(new javax.swing.ImageIcon(getClass().getResource("/data/ingles.png")));
+         labelOP.setIcon(new javax.swing.ImageIcon(getClass().getResource("/data/ingles.png")));
          
-//         labelFr1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/data/ingles.png")));
-//         labelFr2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/data/español.png")));
+         labelFr1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/data/ingles.png")));
+         labelFr2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/data/español.png")));
 
          
          
